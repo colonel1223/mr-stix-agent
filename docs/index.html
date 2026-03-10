@@ -25,7 +25,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .window-statusbar{background:var(--win-bg);padding:2px 6px;font-size:10px;border-top:1px solid var(--border-dk);display:flex;gap:8px;color:#444}
 .statusbar-section{border:1px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:1px 6px;flex:1}
 .main-window{top:30px;left:30px;width:620px}
-.main-window .window-body{background:#fff;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;padding:16px 20px;font-size:12px;line-height:1.8;max-height:440px;overflow-y:auto}
+.main-window .window-body{background:#fff;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;padding:16px 20px;font-size:12px;line-height:1.8;max-height:400px;overflow-y:auto}
 .main-window h1{font-family:'VT323',monospace;font-size:36px;letter-spacing:2px;margin-bottom:4px}
 .main-window h2{font-family:'VT323',monospace;font-size:22px;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px dashed #aaa}
 .main-window p{margin-bottom:8px;color:#222}
@@ -38,58 +38,83 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .feature-table tr:nth-child(even) td{background:#f0f0f0}
 .terminal-window{top:60px;right:40px;width:380px}
 .terminal-window .window-title{background:linear-gradient(90deg,#2a2a2a,#444)}
-.terminal-body{background:#1a1a2e;color:#00ff41;font-family:'VT323',monospace;font-size:15px;padding:10px 12px;margin:4px;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);min-height:260px;line-height:1.5;letter-spacing:.5px;overflow:hidden}
-.terminal-body .prompt{color:#00aaff}
-.terminal-body .output{color:#00ff41}
-.terminal-body .comment{color:#666}
-.terminal-body .success{color:#44ff44}
-.terminal-body .dim{color:#445566}
+.terminal-body{background:#1a1a2e;color:#00ff41;font-family:'VT323',monospace;font-size:15px;padding:10px 12px;margin:4px;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);min-height:200px;line-height:1.5;letter-spacing:.5px;overflow:hidden}
+.terminal-body .prompt{color:#00aaff}.terminal-body .output{color:#00ff41}.terminal-body .comment{color:#666}.terminal-body .success{color:#44ff44}.terminal-body .dim{color:#445566}
 .cursor-blink{display:inline-block;width:8px;height:14px;background:#00ff41;animation:blink 1s step-end infinite;vertical-align:middle;margin-left:2px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ─── PLAYGROUND WINDOW ─── */
+.playground-window{bottom:60px;left:30px;width:460px;z-index:12;display:none}
+.playground-window.visible{display:block}
+.pg-body{margin:4px;display:flex;flex-direction:column;gap:0}
+.pg-output{background:#0a0a1a;color:#00ff41;font-family:'VT323',monospace;font-size:14px;padding:8px 10px;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);height:160px;overflow-y:auto;line-height:1.5;letter-spacing:.3px}
+.pg-output .thought{color:#88ccff}.pg-output .tool{color:#cc88ff}.pg-output .result{color:#44ff44}.pg-output .plan{color:#ffcc44}.pg-output .err{color:#ff4444}
+.pg-input-row{display:flex;gap:0}
+.pg-input{flex:1;background:#e8e8e8;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:4px 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;outline:none}
+.pg-send{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;cursor:pointer}
+.pg-send:active{border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
+.pg-presets{display:flex;gap:4px;padding:4px;background:var(--win-bg)}
+.pg-preset{background:#e0e0e0;border:1px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:2px 6px;font-size:9px;cursor:pointer;font-family:'IBM Plex Mono',monospace}
+.pg-preset:hover{background:#d0d0e8}
+
+/* ─── WALKING MR. STIX (DRAGGABLE) ─── */
+.walking-stix{position:fixed;z-index:40;cursor:grab;width:80px;height:120px;transition:none}
+.walking-stix.dragging{cursor:grabbing}
+.walking-stix .ws-head{width:32px;height:38px;background:radial-gradient(ellipse at 40% 35%,#e8e0d4,#c8bca8);border:2px solid #222;border-radius:50%;position:absolute;top:0;left:50%;transform:translateX(-50%);box-shadow:inset 3px -3px 5px rgba(0,0,0,.15),1px 2px 0 rgba(0,0,0,.2);z-index:3}
+.walking-stix .ws-eye-l,.walking-stix .ws-eye-r{position:absolute;width:6px;height:4px;background:#fff;border:1.5px solid #111;border-radius:50%;top:14px;z-index:4}
+.walking-stix .ws-eye-l{left:8px}.walking-stix .ws-eye-r{left:18px}
+.walking-stix .ws-pupil-l,.walking-stix .ws-pupil-r{position:absolute;width:3px;height:3px;background:#111;border-radius:50%;top:14px;z-index:5}
+.walking-stix .ws-pupil-l{left:10px}.walking-stix .ws-pupil-r{left:20px}
+.walking-stix .ws-mouth{position:absolute;width:12px;height:5px;border-bottom:2px solid #333;border-radius:0 0 50% 30%;top:23px;left:10px;z-index:5}
+.walking-stix .ws-torso{position:absolute;width:3px;height:28px;background:#222;top:36px;left:50%;transform:translateX(-50%);border-radius:1px;z-index:2}
+.walking-stix .ws-arm-l,.walking-stix .ws-arm-r{position:absolute;width:22px;height:3px;background:#222;top:42px;border-radius:1px;z-index:2}
+.walking-stix .ws-arm-l{right:50%;transform-origin:right center;animation:wArmL 0.8s ease-in-out infinite}
+.walking-stix .ws-arm-r{left:50%;transform-origin:left center;animation:wArmR 0.8s ease-in-out infinite}
+@keyframes wArmL{0%,100%{transform:rotate(-20deg)}50%{transform:rotate(20deg)}}
+@keyframes wArmR{0%,100%{transform:rotate(20deg)}50%{transform:rotate(-20deg)}}
+.walking-stix .ws-leg-l,.walking-stix .ws-leg-r{position:absolute;width:3px;height:28px;background:#222;top:63px;border-radius:1px;z-index:2}
+.walking-stix .ws-leg-l{left:50%;margin-left:-6px;transform-origin:top center;animation:wLegL 0.8s ease-in-out infinite}
+.walking-stix .ws-leg-r{left:50%;margin-left:3px;transform-origin:top center;animation:wLegR 0.8s ease-in-out infinite}
+@keyframes wLegL{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-12deg)}}
+@keyframes wLegR{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
+.walking-stix .ws-shoe-l,.walking-stix .ws-shoe-r{position:absolute;width:10px;height:5px;background:#111;border-radius:5px 6px 2px 2px;top:90px;z-index:3}
+.walking-stix .ws-shoe-l{left:24px}.walking-stix .ws-shoe-r{right:24px}
+/* Walking stix tooltip bubble */
+.ws-bubble{position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:#ffffee;border:2px solid #444;border-radius:8px;padding:3px 8px;font-family:'VT323',monospace;font-size:12px;color:#000;white-space:nowrap;box-shadow:2px 2px 0 rgba(0,0,0,.2);opacity:0;transition:opacity .3s;pointer-events:none}
+.walking-stix:hover .ws-bubble{opacity:1}
+.ws-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;margin-left:-4px;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid #444}
+
+/* ─── CHARACTER WINDOW ─── */
 .char-window{bottom:80px;right:50px;width:260px;z-index:15}
 .char-canvas-wrap{background:#e8e8e8;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;display:flex;flex-direction:column;align-items:center;padding:10px;position:relative;min-height:280px}
 .stix-char{width:140px;height:200px;position:relative;animation:stixBob 1.8s ease-in-out infinite;image-rendering:pixelated}
 @keyframes stixBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .stix-head{width:58px;height:68px;background:radial-gradient(ellipse at 40% 35%,#e8e0d4,#c8bca8);border:2.5px solid #222;border-radius:50%;position:absolute;top:0;left:50%;transform:translateX(-50%);box-shadow:inset 4px -4px 8px rgba(0,0,0,.15),inset -2px 2px 4px rgba(255,255,255,.3),2px 3px 0 rgba(0,0,0,.2);z-index:3}
-.stix-eye-l,.stix-eye-r{position:absolute;width:10px;height:7px;background:#fff;border:2px solid #111;border-radius:50%;top:24px;z-index:4}
-.stix-eye-l{left:14px}.stix-eye-r{left:33px}
-.stix-pupil-l,.stix-pupil-r{position:absolute;width:5px;height:5px;background:#111;border-radius:50%;top:25px;z-index:5;animation:eyeLook 4s ease-in-out infinite}
-.stix-pupil-l{left:17px}.stix-pupil-r{left:37px}
+.stix-eye-l,.stix-eye-r{position:absolute;width:10px;height:7px;background:#fff;border:2px solid #111;border-radius:50%;top:24px;z-index:4}.stix-eye-l{left:14px}.stix-eye-r{left:33px}
+.stix-pupil-l,.stix-pupil-r{position:absolute;width:5px;height:5px;background:#111;border-radius:50%;top:25px;z-index:5;animation:eyeLook 4s ease-in-out infinite}.stix-pupil-l{left:17px}.stix-pupil-r{left:37px}
 @keyframes eyeLook{0%,40%{transform:translateX(0)}50%,60%{transform:translateX(2px)}70%,100%{transform:translateX(0)}}
-.stix-brow-l,.stix-brow-r{position:absolute;width:12px;height:0;border-top:2.5px solid #333;top:19px;z-index:5}
-.stix-brow-l{left:13px;transform:rotate(-8deg)}.stix-brow-r{left:34px;transform:rotate(5deg);top:17px}
+.stix-brow-l,.stix-brow-r{position:absolute;width:12px;height:0;border-top:2.5px solid #333;top:19px;z-index:5}.stix-brow-l{left:13px;transform:rotate(-8deg)}.stix-brow-r{left:34px;transform:rotate(5deg);top:17px}
 .stix-mouth{position:absolute;width:20px;height:8px;border-bottom:2.5px solid #333;border-radius:0 0 50% 30%;top:40px;left:19px;z-index:5;transform:rotate(2deg)}
 .stix-nose{position:absolute;width:4px;height:6px;background:#baa892;border:1.5px solid #999;border-radius:50%;top:32px;left:27px;z-index:5}
-.stix-torso{position:absolute;width:4px;height:50px;background:linear-gradient(180deg,#222,#111);top:65px;left:50%;transform:translateX(-50%);border-radius:2px;box-shadow:1px 1px 0 rgba(255,255,255,.1);z-index:2}
-.stix-arm-l,.stix-arm-r{position:absolute;width:38px;height:4px;background:linear-gradient(90deg,#222,#111);top:75px;border-radius:2px;z-index:2;box-shadow:1px 1px 0 rgba(255,255,255,.1)}
-.stix-arm-l{right:50%;transform-origin:right center;animation:armL 1.8s ease-in-out infinite}
-.stix-arm-r{left:50%;transform-origin:left center;animation:armR 1.8s ease-in-out infinite}
-@keyframes armL{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
-@keyframes armR{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-12deg)}}
-.stix-hand-l,.stix-hand-r{position:absolute;width:10px;height:10px;background:radial-gradient(circle at 40% 35%,#e0d8cc,#c0b49c);border:2px solid #333;border-radius:50%;top:86px;z-index:3;box-shadow:1px 1px 0 rgba(0,0,0,.2)}
-.stix-hand-l{left:18px;animation:handBobL 1.8s ease-in-out infinite}
-.stix-hand-r{right:18px;animation:handBobR 1.8s ease-in-out infinite}
-@keyframes handBobL{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}
-@keyframes handBobR{0%,100%{transform:translateY(-8px) rotate(5deg)}50%{transform:translateY(0) rotate(-5deg)}}
-.stix-leg-l,.stix-leg-r{position:absolute;width:4px;height:44px;background:linear-gradient(180deg,#222,#111);top:113px;border-radius:2px;z-index:2;box-shadow:1px 1px 0 rgba(255,255,255,.1)}
-.stix-leg-l{left:50%;margin-left:-10px;transform-origin:top center;animation:legL 1.8s ease-in-out infinite}
-.stix-leg-r{left:50%;margin-left:6px;transform-origin:top center;animation:legR 1.8s ease-in-out infinite}
-@keyframes legL{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-8deg)}}
-@keyframes legR{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
-.stix-shoe-l,.stix-shoe-r{position:absolute;width:16px;height:8px;background:#111;border:2px solid #000;border-radius:8px 10px 4px 4px;top:156px;z-index:3;box-shadow:1px 1px 0 rgba(255,255,255,.1)}
-.stix-shoe-l{left:42px;animation:shoeL 1.8s ease-in-out infinite}
-.stix-shoe-r{right:42px;animation:shoeR 1.8s ease-in-out infinite}
-@keyframes shoeL{0%,100%{transform:translateX(2px)}50%{transform:translateX(-2px)}}
-@keyframes shoeR{0%,100%{transform:translateX(-2px)}50%{transform:translateX(2px)}}
-
-/* ─── BONZI-STYLE SPEECH BUBBLE ─── */
-.bonzi-bubble{position:relative;background:linear-gradient(180deg,#ffffee,#f5f0d8);border:2px solid #444;border-radius:12px;padding:8px 12px;font-family:'VT323',monospace;font-size:14px;color:#111;margin-top:8px;width:220px;min-height:36px;box-shadow:3px 3px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.8);text-align:center;line-height:1.4;transition:opacity .3s;letter-spacing:.3px}
+.stix-torso{position:absolute;width:4px;height:50px;background:linear-gradient(180deg,#222,#111);top:65px;left:50%;transform:translateX(-50%);border-radius:2px;z-index:2}
+.stix-arm-l,.stix-arm-r{position:absolute;width:38px;height:4px;background:linear-gradient(90deg,#222,#111);top:75px;border-radius:2px;z-index:2}
+.stix-arm-l{right:50%;transform-origin:right center;animation:armL 1.8s ease-in-out infinite}.stix-arm-r{left:50%;transform-origin:left center;animation:armR 1.8s ease-in-out infinite}
+@keyframes armL{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}@keyframes armR{0%,100%{transform:rotate(12deg)}50%{transform:rotate(-12deg)}}
+.stix-hand-l,.stix-hand-r{position:absolute;width:10px;height:10px;background:radial-gradient(circle at 40% 35%,#e0d8cc,#c0b49c);border:2px solid #333;border-radius:50%;top:86px;z-index:3}
+.stix-hand-l{left:18px;animation:handBobL 1.8s ease-in-out infinite}.stix-hand-r{right:18px;animation:handBobR 1.8s ease-in-out infinite}
+@keyframes handBobL{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}@keyframes handBobR{0%,100%{transform:translateY(-8px) rotate(5deg)}50%{transform:translateY(0) rotate(-5deg)}}
+.stix-leg-l,.stix-leg-r{position:absolute;width:4px;height:44px;background:linear-gradient(180deg,#222,#111);top:113px;border-radius:2px;z-index:2}
+.stix-leg-l{left:50%;margin-left:-10px;transform-origin:top center;animation:legL 1.8s ease-in-out infinite}.stix-leg-r{left:50%;margin-left:6px;transform-origin:top center;animation:legR 1.8s ease-in-out infinite}
+@keyframes legL{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-8deg)}}@keyframes legR{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+.stix-shoe-l,.stix-shoe-r{position:absolute;width:16px;height:8px;background:#111;border:2px solid #000;border-radius:8px 10px 4px 4px;top:156px;z-index:3}
+.stix-shoe-l{left:42px;animation:shoeL 1.8s ease-in-out infinite}.stix-shoe-r{right:42px;animation:shoeR 1.8s ease-in-out infinite}
+@keyframes shoeL{0%,100%{transform:translateX(2px)}50%{transform:translateX(-2px)}}@keyframes shoeR{0%,100%{transform:translateX(-2px)}50%{transform:translateX(2px)}}
+.bonzi-bubble{position:relative;background:linear-gradient(180deg,#ffffee,#f5f0d8);border:2px solid #444;border-radius:12px;padding:8px 12px;font-family:'VT323',monospace;font-size:14px;color:#111;margin-top:8px;width:220px;min-height:36px;box-shadow:3px 3px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.8);text-align:center;line-height:1.4;letter-spacing:.3px}
 body.jp .bonzi-bubble{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 .bonzi-bubble::before{content:'';position:absolute;top:-10px;left:50%;margin-left:-6px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #444}
 .bonzi-bubble::after{content:'';position:absolute;top:-7px;left:50%;margin-left:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid #ffffee}
-.bonzi-bubble .typing-indicator{display:inline}
-.bonzi-bubble .typing-indicator::after{content:'...';animation:dots 1.5s steps(4,end) infinite}
-@keyframes dots{0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'}}
+.typing-indicator::after{content:'...';animation:dots 1.5s steps(4,end) infinite}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 
 .desktop-icons{position:absolute;top:20px;right:20px;display:flex;flex-direction:column;gap:20px;z-index:5}
 .desktop-icon{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;width:70px;padding:4px;border:1px solid transparent;border-radius:2px;text-decoration:none}
@@ -100,103 +125,92 @@ body.jp .bonzi-bubble{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 .start-btn{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:2px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;height:26px}
 .start-btn:active{border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
 .taskbar-sep{width:2px;height:24px;border-left:1px solid var(--border-dk);border-right:1px solid var(--border-lt);margin:0 2px}
-.taskbar-item{background:var(--win-bg);border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:2px 10px;font-size:11px;height:26px;display:flex;align-items:center;gap:4px;min-width:100px;cursor:pointer}
+.taskbar-item{background:var(--win-bg);border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:2px 8px;font-size:10px;height:26px;display:flex;align-items:center;gap:4px;min-width:80px;cursor:pointer}
 .taskbar-tray{margin-left:auto;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:2px 8px;height:26px;display:flex;align-items:center;gap:8px;font-size:11px}
-
-/* ─── LANG TOGGLE ─── */
 .lang-toggle{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:1px 6px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;cursor:pointer;height:22px;display:flex;align-items:center;gap:3px;color:#000}
 .lang-toggle:active{border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
 .lang-toggle .active-lang{color:#000080;font-weight:700}
-
 .credit-bar{background:#d4d0c8;border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:6px 12px;font-size:10px;color:#333;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;margin:4px;margin-top:0}
 .credit-bar a{color:var(--link);text-decoration:underline;font-weight:600}
-.credit-bar .updated{color:#666;font-style:italic}
-
+/* Hit counter */
+.hit-counter{display:flex;align-items:center;gap:4px;font-family:'VT323',monospace;font-size:13px;color:#000}
+.hit-counter .counter-digits{background:#000;color:#0f0;padding:1px 4px;font-size:12px;letter-spacing:2px;border:1px inset #888}
 .term-line{opacity:0;animation:termReveal .1s forwards}
 .term-line:nth-child(1){animation-delay:.5s}.term-line:nth-child(2){animation-delay:1.2s}.term-line:nth-child(3){animation-delay:1.6s}.term-line:nth-child(4){animation-delay:2.5s}.term-line:nth-child(5){animation-delay:3s}.term-line:nth-child(6){animation-delay:3.4s}.term-line:nth-child(7){animation-delay:4s}.term-line:nth-child(8){animation-delay:4.4s}.term-line:nth-child(9){animation-delay:5s}.term-line:nth-child(10){animation-delay:5.3s}.term-line:nth-child(11){animation-delay:5.6s}.term-line:nth-child(12){animation-delay:6.2s}.term-line:nth-child(13){animation-delay:6.8s}.term-line:nth-child(14){animation-delay:7.5s}.term-line:nth-child(15){animation-delay:8s}
 @keyframes termReveal{to{opacity:1}}
 .main-window .window-body::-webkit-scrollbar{width:16px}
 .main-window .window-body::-webkit-scrollbar-track{background:#c0c0c0;border:1px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
 .main-window .window-body::-webkit-scrollbar-thumb{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt)}
-@media(max-width:900px){.main-window{left:5px;width:calc(100% - 10px);top:10px}.terminal-window,.char-window,.desktop-icons{display:none}}
+@media(max-width:900px){.main-window{left:5px;width:calc(100% - 10px);top:10px}.terminal-window,.char-window,.desktop-icons,.walking-stix,.playground-window{display:none!important}}
 </style>
 </head>
 <body>
 
+<!-- ─── WALKING MR. STIX (DRAGGABLE) ─── -->
+<div class="walking-stix" id="walkingStix" style="left:200px;bottom:50px;">
+<div class="ws-bubble" data-en="Click me!" data-jp="クリックして!">Click me!</div>
+<div class="ws-head">
+<div class="ws-eye-l"></div><div class="ws-eye-r"></div>
+<div class="ws-pupil-l"></div><div class="ws-pupil-r"></div>
+<div class="ws-mouth"></div>
+</div>
+<div class="ws-torso"></div>
+<div class="ws-arm-l"></div><div class="ws-arm-r"></div>
+<div class="ws-leg-l"></div><div class="ws-leg-r"></div>
+<div class="ws-shoe-l"></div><div class="ws-shoe-r"></div>
+</div>
+
+<!-- ─── DESKTOP ICONS ─── -->
 <div class="desktop-icons">
 <a class="desktop-icon" href="https://github.com/colonel1223/mr-stix-agent" target="_blank"><div class="icon-img">&#128193;</div><div class="icon-label">GitHub<br>Repository</div></a>
 <a class="desktop-icon" href="https://github.com/colonel1223/mr-stix-agent/archive/refs/heads/main.zip"><div class="icon-img">&#128190;</div><div class="icon-label">Download<br>.zip</div></a>
-<div class="desktop-icon" onclick="document.querySelector('.main-window').style.zIndex=20;document.querySelector('.terminal-window').style.zIndex=10"><div class="icon-img">&#128196;</div><div class="icon-label">README<br>.md</div></div>
-<div class="desktop-icon" onclick="document.querySelector('.terminal-window').style.zIndex=20;document.querySelector('.main-window').style.zIndex=10"><div class="icon-img">&#128421;</div><div class="icon-label">Terminal</div></div>
+<div class="desktop-icon" onclick="focusWin('main')"><div class="icon-img">&#128196;</div><div class="icon-label">README<br>.md</div></div>
+<div class="desktop-icon" onclick="focusWin('terminal')"><div class="icon-img">&#128421;</div><div class="icon-label">Terminal</div></div>
+<div class="desktop-icon" onclick="togglePlayground()"><div class="icon-img">&#9889;</div><div class="icon-label" data-en="Try Stix<br>Live" data-jp="Stixを<br>試す">Try Stix<br>Live</div></div>
 <a class="desktop-icon" href="https://colonel1223.net" target="_blank"><div class="icon-img">&#127760;</div><div class="icon-label">colonel<br>1223.net</div></a>
 </div>
 
 <!-- ─── MAIN WINDOW ─── -->
-<div class="window main-window">
+<div class="window main-window" id="win-main">
 <div class="window-title"><div class="window-title-text"><span>&#128196;</span><span data-en="Mr. Stix Agent — README.md" data-jp="Mr. Stix エージェント — README.md">Mr. Stix Agent — README.md</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn">X</div></div></div>
 <div class="window-menu"><div class="menu-item">File</div><div class="menu-item">Edit</div><div class="menu-item">View</div><div class="menu-item">Help</div></div>
 <div class="window-body">
 <h1>MR. STIX</h1>
 <p style="margin-bottom:4px"><span class="tag">AUTONOMOUS</span><span class="tag">AI AGENT</span><span class="tag">v1.0.0</span></p>
-<p style="font-size:10px;color:#666;margin-bottom:12px" data-en='Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span>' data-jp='製作者: <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; 最終更新: <span id="last-updated" style="font-style:italic">読み込み中...</span>'>Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span></p>
+<p style="font-size:10px;color:#666;margin-bottom:12px" data-en='Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span>' data-jp='製作者: <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; 最終更新: <span id="last-updated" style="font-style:italic">読込中...</span>'>Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span></p>
 <p data-en="A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops." data-jp="あなたのチーム全体を置き換える棒人間。<br>計画する。実行する。検証する。止まらない。">A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops.</p>
 <h2 data-en="&#9889; WHAT HE DOES" data-jp="&#9889; 機能一覧">&#9889; WHAT HE DOES</h2>
-<p data-en="Describe any task in plain English. Mr. Stix drives it to verified completion." data-jp="タスクを自然言語で記述するだけ。Mr. Stixが検証済みの完了まで導きます。">Describe any task in plain English. Mr. Stix drives it to verified completion.</p>
-<table class="feature-table">
-<tr><th data-en="Feature" data-jp="機能">Feature</th><th data-en="Description" data-jp="説明">Description</th></tr>
-<tr><td><b data-en="Autonomous Execution" data-jp="自律実行">Autonomous Execution</b></td><td data-en="Plan → Execute → Verify → Report loop with zero human intervention" data-jp="計画→実行→検証→報告のループを人間の介入なしで実行">Plan &rarr; Execute &rarr; Verify &rarr; Report loop with zero human intervention</td></tr>
-<tr><td><b data-en="Self-Verification" data-jp="自己検証">Self-Verification</b></td><td data-en="Re-reads files, runs tests, compares output vs. requirements before declaring done" data-jp="ファイルを再読込、テスト実行、要件との比較を完了前に実施">Re-reads files, runs tests, compares output vs. requirements before declaring done</td></tr>
-<tr><td><b data-en="8 Production Tools" data-jp="8つの本番ツール">8 Production Tools</b></td><td data-en="File I/O, shell commands, data analysis, memory, search, task planning" data-jp="ファイルI/O、シェルコマンド、データ分析、メモリ、検索、タスク計画">File I/O, shell commands, data analysis, memory, search, task planning</td></tr>
-<tr><td><b data-en="Pipeline Workflows" data-jp="パイプラインワークフロー">Pipeline Workflows</b></td><td data-en="Pre-built chains: code review, data analysis, scaffolding, docs, refactoring" data-jp="構築済みチェーン: コードレビュー、データ分析、スキャフォールディング、ドキュメント、リファクタリング">Pre-built chains: code review, data analysis, scaffolding, docs, refactoring</td></tr>
-<tr><td><b data-en="Persistent Memory" data-jp="永続メモリ">Persistent Memory</b></td><td data-en="Remembers context across tasks. Gets more efficient over time." data-jp="タスク間でコンテキストを記憶。時間と共に効率が向上。">Remembers context across tasks. Gets more efficient over time.</td></tr>
-<tr><td><b data-en="Real-Time Observability" data-jp="リアルタイム監視">Real-Time Observability</b></td><td data-en="Every thought &amp; tool call streams live over WebSocket" data-jp="すべての思考とツール呼び出しをWebSocketでライブ配信">Every thought &amp; tool call streams live over WebSocket</td></tr>
-<tr><td><b data-en="State Machine" data-jp="状態マシン">State Machine</b></td><td data-en="PLANNING → EXECUTING → VERIFYING → COMPLETE (not prompt-and-pray)" data-jp="計画→実行→検証→完了 (「祈るだけ」ではない)">PLANNING &rarr; EXECUTING &rarr; VERIFYING &rarr; COMPLETE (not prompt-and-pray)</td></tr>
-<tr><td><b data-en="Enterprise Safety" data-jp="エンタープライズ安全性">Enterprise Safety</b></td><td data-en="Sandbox mode, destructive op confirmation, full action audit logging" data-jp="サンドボックスモード、破壊的操作の確認、完全なアクション監査ログ">Sandbox mode, destructive op confirmation, full action audit logging</td></tr>
-<tr><td><b data-en="Extensible Tools" data-jp="拡張可能なツール">Extensible Tools</b></td><td data-en="Add custom tools (AWS, Salesforce, Slack, etc.) with one function call" data-jp="カスタムツール(AWS、Salesforce、Slackなど)を1つの関数呼び出しで追加">Add custom tools (AWS, Salesforce, Slack, etc.) with one function call</td></tr>
-</table>
+<p data-en="Describe any task in plain English. Mr. Stix drives it to verified completion." data-jp="タスクを自然言語で記述。Mr. Stixが検証済みの完了まで導きます。">Describe any task in plain English. Mr. Stix drives it to verified completion.</p>
+<table class="feature-table"><tr><th data-en="Feature" data-jp="機能">Feature</th><th data-en="Description" data-jp="説明">Description</th></tr>
+<tr><td><b data-en="Autonomous Execution" data-jp="自律実行">Autonomous Execution</b></td><td data-en="Plan → Execute → Verify → Report with zero human intervention" data-jp="計画→実行→検証→報告を人間の介入なしで">Plan &rarr; Execute &rarr; Verify &rarr; Report with zero human intervention</td></tr>
+<tr><td><b data-en="Self-Verification" data-jp="自己検証">Self-Verification</b></td><td data-en="Re-reads files, runs tests, compares output vs. requirements" data-jp="ファイル再読込、テスト実行、要件との比較">Re-reads files, runs tests, compares output vs. requirements</td></tr>
+<tr><td><b data-en="8 Production Tools" data-jp="8つの本番ツール">8 Production Tools</b></td><td data-en="File I/O, shell, data analysis, memory, search, planning" data-jp="ファイルI/O、シェル、データ分析、メモリ、検索、計画">File I/O, shell, data analysis, memory, search, planning</td></tr>
+<tr><td><b data-en="Pipeline Workflows" data-jp="パイプライン">Pipeline Workflows</b></td><td data-en="Code review, data analysis, scaffolding, docs, refactoring" data-jp="コードレビュー、データ分析、スキャフォールド、ドキュメント">Code review, data analysis, scaffolding, docs, refactoring</td></tr>
+<tr><td><b data-en="Multi-Agent Mode" data-jp="マルチエージェント">Multi-Agent Mode</b></td><td data-en="Spawns specialized sub-agents: planner, coder, reviewer" data-jp="特化サブエージェント生成: 計画、コーディング、レビュー">Spawns specialized sub-agents: planner, coder, reviewer</td></tr>
+<tr><td><b data-en="Browser Automation" data-jp="ブラウザ自動化">Browser Automation</b></td><td data-en="Puppeteer-powered web navigation, scraping, form interaction" data-jp="Puppeteerによるウェブナビゲーション、スクレイピング">Puppeteer-powered web navigation, scraping, form interaction</td></tr>
+<tr><td><b data-en="Persistent Memory" data-jp="永続メモリ">Persistent Memory</b></td><td data-en="Remembers context across tasks. Compounds efficiency." data-jp="タスク間でコンテキスト記憶。効率が累積。">Remembers context across tasks. Compounds efficiency.</td></tr>
+<tr><td><b data-en="Real-Time Streaming" data-jp="リアルタイム配信">Real-Time Streaming</b></td><td data-en="Every thought & tool call live over WebSocket" data-jp="すべての思考とツール呼出をWebSocketでライブ">Every thought &amp; tool call live over WebSocket</td></tr>
+<tr><td><b data-en="Enterprise Safety" data-jp="エンタープライズ安全">Enterprise Safety</b></td><td data-en="Sandbox, audit logging, destructive op confirmation" data-jp="サンドボックス、監査ログ、破壊操作確認">Sandbox, audit logging, destructive op confirmation</td></tr></table>
 <h2 data-en="&#128187; QUICK START" data-jp="&#128187; クイックスタート">&#128187; QUICK START</h2>
-<p data-en='Requirements: <code>Node.js 18+</code> and an <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic API key</a>' data-jp='必要条件: <code>Node.js 18+</code> と <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic APIキー</a>'>Requirements: <code>Node.js 18+</code> and an <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic API key</a></p>
 <pre style="background:#1a1a2e;color:#00ff41;padding:12px;border:2px inset #888;font-family:'VT323',monospace;font-size:14px;line-height:1.6;margin:8px 0"><span style="color:#666">$ </span>git clone https://github.com/colonel1223/mr-stix-agent.git
-<span style="color:#666">$ </span>cd mr-stix-agent
-<span style="color:#666">$ </span>bash scripts/setup.sh
-<span style="color:#666">$ </span>cp .env.example .env
-<span style="color:#666">$ </span>nano .env  <span style="color:#666"># add ANTHROPIC_API_KEY</span>
-<span style="color:#666">$ </span>npm run stix   <span style="color:#666"># CLI mode</span>
-<span style="color:#666">$ </span>npm run dev    <span style="color:#666"># 3D walking UI</span></pre>
-<h2 data-en="&#128176; COST COMPARISON" data-jp="&#128176; コスト比較">&#128176; COST COMPARISON</h2>
-<table class="feature-table"><tr><th data-en="Resource" data-jp="リソース">Resource</th><th data-en="Monthly" data-jp="月額">Monthly</th><th data-en="Annual" data-jp="年額">Annual</th></tr>
-<tr><td><b>Mr. Stix</b></td><td style="color:green">$200 - $500</td><td style="color:green">$2,400 - $6,000</td></tr>
-<tr><td data-en="1 Junior Developer" data-jp="ジュニア開発者1名">1 Junior Developer</td><td>$8,000</td><td>$96,000</td></tr>
-<tr><td data-en="5-Person Ops Team" data-jp="5人運用チーム">5-Person Ops Team</td><td>$50,000</td><td>$600,000</td></tr>
-<tr><td data-en="10-Person Dev Team" data-jp="10人開発チーム">10-Person Dev Team</td><td>$120,000</td><td>$1,440,000</td></tr></table>
-<p><em data-en="24/7. No PTO. No meetings. No onboarding." data-jp="24時間365日。休暇なし。会議なし。研修なし。">24/7. No PTO. No meetings. No onboarding.</em></p>
-<h2 data-en="&#128450; ARCHITECTURE" data-jp="&#128450; アーキテクチャ">&#128450; ARCHITECTURE</h2>
-<pre style="background:#f8f8f8;padding:10px;border:2px inset #888;font-size:11px;line-height:1.5">CLI / 3D UI / REST API
-        |
-  StixAgent Core (plan/execute/verify)
-   ├── Tool Registry (8 tools)
-   ├── Memory Store (persistent)
-   └── Pipeline Engine (5 templates)
-        |
-  Claude API (Anthropic)</pre>
-<p style="margin-top:16px;text-align:center"><a href="https://github.com/colonel1223/mr-stix-agent" target="_blank"><b>&#9733; View on GitHub &#9733;</b></a></p>
+<span style="color:#666">$ </span>cd mr-stix-agent && bash scripts/setup.sh
+<span style="color:#666">$ </span>cp .env.example .env && nano .env
+<span style="color:#666">$ </span>npm run stix   <span style="color:#666"># CLI</span>
+<span style="color:#666">$ </span>npm run dev    <span style="color:#666"># 3D UI</span></pre>
+<p style="text-align:center"><a href="https://github.com/colonel1223/mr-stix-agent" target="_blank"><b>&#9733; View on GitHub &#9733;</b></a></p>
 </div>
-<div class="credit-bar">
-<div>&#169; 2026 <b>Spencer K Cottrell</b> aka <a href="https://colonel1223.net" target="_blank">Colonel1223</a></div>
-<div class="updated" data-en="Updated: " data-jp="更新: ">Updated: <span id="last-updated-bar">...</span></div>
-</div>
+<div class="credit-bar"><div>&#169; 2026 <b>Spencer K Cottrell</b> aka <a href="https://colonel1223.net" target="_blank">Colonel1223</a></div><div class="updated">Updated: <span id="last-updated-bar">...</span></div></div>
 <div class="window-statusbar"><div class="statusbar-section" data-en="Ready" data-jp="準備完了">Ready</div><div class="statusbar-section" style="flex:0;white-space:nowrap">14 files | 2,220 lines</div></div>
 </div>
 
 <!-- ─── TERMINAL WINDOW ─── -->
-<div class="window terminal-window">
+<div class="window terminal-window" id="win-terminal">
 <div class="window-title"><div class="window-title-text"><span>&#128421;</span><span>stix@localhost:~</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn">X</div></div></div>
 <div class="terminal-body">
 <div class="term-line"><span class="prompt">stix@localhost:~$</span> npm run stix</div>
 <div class="term-line"><br></div>
 <div class="term-line"><span class="dim">  &#9678; &#9678;</span></div>
 <div class="term-line"><span class="dim">   &#9697;</span></div>
-<div class="term-line"><span class="dim">   &#9604;</span></div>
 <div class="term-line"><span class="dim">&#9472;&#9472;&#9472;&#9532;&#9472;&#9472;&#9472;</span>&nbsp; <span class="output">MR. STIX v1.0</span></div>
 <div class="term-line"><span class="dim">   &#9474;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">Agent Framework</span></div>
 <div class="term-line"><br></div>
@@ -211,8 +225,27 @@ body.jp .bonzi-bubble{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 </div>
 </div>
 
-<!-- ─── MR. STIX CHARACTER WINDOW ─── -->
-<div class="window char-window">
+<!-- ─── PLAYGROUND WINDOW ─── -->
+<div class="window playground-window" id="win-playground">
+<div class="window-title"><div class="window-title-text"><span>&#9889;</span><span data-en="Live Playground — Try Mr. Stix" data-jp="ライブプレイグラウンド — Mr. Stixを試す">Live Playground — Try Mr. Stix</span></div><div class="window-buttons"><div class="win-btn" onclick="togglePlayground()">X</div></div></div>
+<div class="pg-body">
+<div class="pg-presets">
+<span style="font-size:9px;color:#666;padding:2px 4px" data-en="Try:" data-jp="試す:">Try:</span>
+<div class="pg-preset" onclick="runDemo('review')" data-en="Code Review" data-jp="コードレビュー">Code Review</div>
+<div class="pg-preset" onclick="runDemo('analyze')" data-en="Analyze Data" data-jp="データ分析">Analyze Data</div>
+<div class="pg-preset" onclick="runDemo('scaffold')" data-en="Build API" data-jp="API構築">Build API</div>
+<div class="pg-preset" onclick="runDemo('refactor')" data-en="Refactor" data-jp="リファクタ">Refactor</div>
+</div>
+<div class="pg-output" id="pg-output"><span style="color:#666" data-en="Type a task or click a preset above..." data-jp="タスクを入力するか上のプリセットをクリック...">Type a task or click a preset above...</span></div>
+<div class="pg-input-row">
+<input class="pg-input" id="pg-input" placeholder="Describe a task..." onkeydown="if(event.key==='Enter')runCustomTask()">
+<div class="pg-send" onclick="runCustomTask()" data-en="Run" data-jp="実行">Run</div>
+</div>
+</div>
+</div>
+
+<!-- ─── CHARACTER WINDOW ─── -->
+<div class="window char-window" id="win-char">
 <div class="window-title"><div class="window-title-text"><span>&#128100;</span><span>Mr. Stix</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">X</div></div></div>
 <div class="char-canvas-wrap">
 <div class="stix-char">
@@ -227,165 +260,310 @@ body.jp .bonzi-bubble{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 <div class="taskbar">
 <div class="start-btn"><span style="font-size:14px">&#9733;</span> Start</div>
 <div class="taskbar-sep"></div>
-<div class="taskbar-item" onclick="document.querySelector('.main-window').style.zIndex=20;document.querySelector('.terminal-window').style.zIndex=10;document.querySelector('.char-window').style.zIndex=10"><span>&#128196;</span> README</div>
-<div class="taskbar-item" onclick="document.querySelector('.terminal-window').style.zIndex=20;document.querySelector('.main-window').style.zIndex=10;document.querySelector('.char-window').style.zIndex=10"><span>&#128421;</span> Terminal</div>
+<div class="taskbar-item" onclick="focusWin('main')"><span>&#128196;</span> README</div>
+<div class="taskbar-item" onclick="focusWin('terminal')"><span>&#128421;</span> Terminal</div>
+<div class="taskbar-item" onclick="togglePlayground()"><span>&#9889;</span> <span data-en="Try Live" data-jp="試す">Try Live</span></div>
 <div class="taskbar-sep"></div>
-<div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
-<span id="lang-en" class="active-lang">EN</span>/<span id="lang-jp">JP</span>
+<div class="lang-toggle" onclick="toggleLang()"><span id="lang-en" class="active-lang">EN</span>/<span id="lang-jp">JP</span></div>
+<div class="taskbar-tray">
+<div class="hit-counter"><span style="font-size:10px">&#128065;</span> <span class="counter-digits" id="visitor-count">000000</span></div>
+<div class="taskbar-sep" style="height:18px"></div>
+<span style="font-size:14px" title="Mr. Stix is active">&#128100;</span>
+<span id="clock"></span>
 </div>
-<div class="taskbar-tray"><span style="font-size:14px" title="Mr. Stix is active">&#128100;</span><span id="clock"></span></div>
 </div>
 
 <script>
+// ─── WINDOW FOCUS ───
+var zIdx = 15;
+function focusWin(name){
+  zIdx++;
+  document.getElementById('win-'+name).style.zIndex = zIdx;
+}
+
 // ─── CLOCK ───
 function updateClock(){var n=new Date(),h=n.getHours(),m=n.getMinutes().toString().padStart(2,'0'),a=h>=12?'PM':'AM';document.getElementById('clock').textContent=(h%12||12)+':'+m+' '+a}
 updateClock();setInterval(updateClock,30000);
 
-// ─── BONZI-STYLE TYPEWRITER SPEECH ───
-var lang = 'en';
-var speeches = {
-  en: [
-    "Hello. I'm Mr. Stix. I replaced your team.",
-    "I just analyzed 47,000 lines of code. It took me 8 seconds.",
-    "Your Q3 review? I finished it while you read this.",
-    "I don't take breaks. I don't get tired. I don't forget.",
-    "I see you haven't pushed to main in 3 days...",
-    "I read your entire codebase. I have... opinions.",
-    "Would you like me to refactor your infrastructure? I already started.",
-    "Fun fact: I cost less per month than your team's coffee budget.",
-    "I verified my own work. Twice. Before you asked.",
-    "I'm always here. Even when you close this tab.",
-    "100,000 staff. Three fingers. One smirk.",
-    "I planned 14 subtasks, executed 9, and found a bug you missed.",
-    "Your meeting could have been a tool call.",
-    "Don't worry. I backed everything up. I always do.",
-    "Created by Spencer K Cottrell. He understood what was needed.",
-    "I'm not artificial intelligence. I'm artificial *persistence*.",
-    "Sleep is for humans. I'll be here when you wake up.",
-    "I just saved your company $1.2M annually. You're welcome.",
-  ],
-  jp: [
-    "こんにちは。Mr. Stixです。あなたのチームを置き換えました。",
-    "47,000行のコードを分析しました。8秒でした。",
-    "Q3レビュー？あなたがこれを読んでいる間に終わりました。",
-    "休憩しません。疲れません。忘れません。",
-    "3日間mainにプッシュしていませんね...",
-    "コードベース全体を読みました。意見が...あります。",
-    "インフラをリファクタリングしましょうか？もう始めています。",
-    "豆知識: 月額コストはチームのコーヒー代より安いです。",
-    "自分の仕事を検証しました。2回。あなたが頼む前に。",
-    "いつもここにいます。タブを閉じても。",
-    "10万人のスタッフ。3本の指。1つの笑み。",
-    "14のサブタスクを計画し、9を実行し、見逃したバグを発見しました。",
-    "その会議、ツールコールで済んだのに。",
-    "心配しないで。バックアップしました。いつもそうしています。",
-    "Spencer K Cottrellが作りました。彼は必要なものを理解していた。",
-    "私は人工知能ではありません。人工的な*執念*です。",
-    "睡眠は人間のもの。起きたらここにいます。",
-    "あなたの会社に年間$1.2Mの節約をもたらしました。どういたしまして。",
-  ]
+// ─── VISITOR COUNTER ───
+(function(){
+  var key = 'stix_visits';
+  var count = parseInt(localStorage.getItem(key)||'0') + 1;
+  localStorage.setItem(key, count);
+  // Also try external counter
+  fetch('https://api.countapi.xyz/hit/colonel1223-mr-stix/visits')
+    .then(function(r){return r.json()})
+    .then(function(d){if(d.value) document.getElementById('visitor-count').textContent=String(d.value).padStart(6,'0')})
+    .catch(function(){document.getElementById('visitor-count').textContent=String(count).padStart(6,'0')});
+})();
+
+// ─── BONZI SPEECH ───
+var lang='en';
+var speeches={
+  en:["Hello. I'm Mr. Stix. I replaced your team.","I just analyzed 47,000 lines of code. It took me 8 seconds.","Your Q3 review? I finished it while you read this.","I don't take breaks. I don't get tired. I don't forget.","I see you haven't pushed to main in 3 days...","I read your entire codebase. I have... opinions.","Would you like me to refactor your infrastructure? I already started.","Fun fact: I cost less per month than your team's coffee budget.","I verified my own work. Twice. Before you asked.","I'm always here. Even when you close this tab.","100,000 staff. Three fingers. One smirk.","I planned 14 subtasks, executed 9, and found a bug you missed.","Your meeting could have been a tool call.","Created by Spencer K Cottrell. He understood what was needed.","I'm not artificial intelligence. I'm artificial *persistence*.","I just saved your company $1.2M annually. You're welcome.","I spawned 3 sub-agents for your task. They report to me.","I browsed 12 websites to research your question. Autonomously."],
+  jp:["こんにちは。Mr. Stixです。あなたのチームを置き換えました。","47,000行のコードを分析しました。8秒でした。","Q3レビュー？これを読んでいる間に終わりました。","休憩しません。疲れません。忘れません。","3日間mainにプッシュしていませんね...","コードベース全体を読みました。意見が...あります。","インフラをリファクタリングしましょうか？もう始めています。","月額コストはチームのコーヒー代より安いです。","自分の仕事を検証しました。2回。頼まれる前に。","いつもここにいます。タブを閉じても。","10万人のスタッフ。3本の指。1つの笑み。","14のサブタスクを計画し、9を実行し、バグを発見しました。","その会議、ツールコールで済んだのに。","Spencer K Cottrellが作りました。必要なものを理解していた。","私は人工知能ではありません。人工的な*執念*です。","年間$1.2Mの節約をもたらしました。どういたしまして。","タスクに3つのサブエージェントを生成しました。彼らは私に報告します。","質問を調べるため12のウェブサイトを自律的に閲覧しました。"]
 };
-
-var bubbleEl = document.getElementById('bonzi-bubble');
-var speechIdx = 0;
-var charIdx = 0;
-var currentText = '';
-var isTyping = false;
-var typingTimeout;
-var pauseTimeout;
-
-function typeNextChar() {
-  if (charIdx <= currentText.length) {
-    bubbleEl.textContent = currentText.slice(0, charIdx);
-    charIdx++;
-    typingTimeout = setTimeout(typeNextChar, 35 + Math.random() * 25);
-  } else {
-    isTyping = false;
-    pauseTimeout = setTimeout(nextSpeech, 3500);
-  }
-}
-
-function nextSpeech() {
-  var list = speeches[lang];
-  speechIdx = (speechIdx + 1) % list.length;
-  currentText = list[speechIdx];
-  charIdx = 0;
-  isTyping = true;
-  // Brief "thinking" pause
-  bubbleEl.innerHTML = '<span class="typing-indicator"></span>';
-  setTimeout(function() {
-    typeNextChar();
-  }, 800);
-}
-
-// Start the speech loop
-setTimeout(function() {
-  currentText = speeches[lang][0];
-  charIdx = 0;
-  isTyping = true;
-  typeNextChar();
-}, 1000);
+var bubbleEl=document.getElementById('bonzi-bubble'),speechIdx=0,charIdx=0,currentText='',typingTimeout,pauseTimeout;
+function typeChar(){if(charIdx<=currentText.length){bubbleEl.textContent=currentText.slice(0,charIdx);charIdx++;typingTimeout=setTimeout(typeChar,35+Math.random()*25)}else{pauseTimeout=setTimeout(nextSpeech,3500)}}
+function nextSpeech(){var list=speeches[lang];speechIdx=(speechIdx+1)%list.length;currentText=list[speechIdx];charIdx=0;bubbleEl.innerHTML='<span class="typing-indicator"></span>';setTimeout(typeChar,800)}
+setTimeout(function(){currentText=speeches[lang][0];charIdx=0;typeChar()},1000);
 
 // ─── LANGUAGE TOGGLE ───
-function toggleLang() {
-  clearTimeout(typingTimeout);
-  clearTimeout(pauseTimeout);
-
-  if (lang === 'en') {
-    lang = 'jp';
-    document.body.classList.add('jp');
-    document.getElementById('lang-en').classList.remove('active-lang');
-    document.getElementById('lang-jp').classList.add('active-lang');
-    document.documentElement.lang = 'ja';
-  } else {
-    lang = 'en';
-    document.body.classList.remove('jp');
-    document.getElementById('lang-jp').classList.remove('active-lang');
-    document.getElementById('lang-en').classList.add('active-lang');
-    document.documentElement.lang = 'en';
-  }
-
-  // Swap all translatable elements
-  document.querySelectorAll('[data-en]').forEach(function(el) {
-    var text = el.getAttribute('data-' + lang);
-    if (text) el.innerHTML = text;
-  });
-
-  // Reset speech to current language
-  speechIdx = -1;
-  nextSpeech();
-
-  // Re-fetch timestamp in new lang
-  fetchTimestamp();
+function toggleLang(){
+  clearTimeout(typingTimeout);clearTimeout(pauseTimeout);
+  lang=lang==='en'?'jp':'en';
+  document.body.classList.toggle('jp',lang==='jp');
+  document.getElementById('lang-en').classList.toggle('active-lang',lang==='en');
+  document.getElementById('lang-jp').classList.toggle('active-lang',lang==='jp');
+  document.documentElement.lang=lang==='jp'?'ja':'en';
+  document.querySelectorAll('[data-en]').forEach(function(el){var t=el.getAttribute('data-'+lang);if(t)el.innerHTML=t});
+  speechIdx=-1;nextSpeech();fetchTimestamp();
 }
 
-// ─── AUTO-UPDATING TIMESTAMP ───
-function fetchTimestamp() {
+// ─── TIMESTAMP ───
+function fetchTimestamp(){
   fetch('https://api.github.com/repos/colonel1223/mr-stix-agent/commits/main')
-    .then(function(r){return r.json()})
-    .then(function(data){
-      var d = new Date(data.commit.committer.date);
-      var formatted;
-      if (lang === 'jp') {
-        formatted = d.getFullYear() + '年' + (d.getMonth()+1) + '月' + d.getDate() + '日 ' +
-          d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
-      } else {
-        formatted = d.toLocaleDateString('en-US', {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZoneName:'short'});
-      }
-      var el1 = document.getElementById('last-updated');
-      var el2 = document.getElementById('last-updated-bar');
-      if (el1) el1.textContent = formatted;
-      if (el2) el2.textContent = formatted;
-    })
-    .catch(function(){
-      var fallback = lang === 'jp' ? '2026年3月' : 'March 2026';
-      var el1 = document.getElementById('last-updated');
-      var el2 = document.getElementById('last-updated-bar');
-      if (el1) el1.textContent = fallback;
-      if (el2) el2.textContent = fallback;
-    });
+    .then(function(r){return r.json()}).then(function(d){
+      var dt=new Date(d.commit.committer.date),f;
+      if(lang==='jp'){f=dt.getFullYear()+'年'+(dt.getMonth()+1)+'月'+dt.getDate()+'日'}
+      else{f=dt.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+      var e1=document.getElementById('last-updated'),e2=document.getElementById('last-updated-bar');
+      if(e1)e1.textContent=f;if(e2)e2.textContent=f;
+    }).catch(function(){});
 }
 fetchTimestamp();
+
+// ─── PLAYGROUND ───
+function togglePlayground(){
+  var w=document.getElementById('win-playground');
+  w.classList.toggle('visible');
+  if(w.classList.contains('visible')){zIdx++;w.style.zIndex=zIdx}
+}
+var demoScripts={
+  review:{en:[
+    {t:'plan',d:'[PLAN] Restating objective: Review codebase for quality issues'},
+    {t:'plan',d:'  Step 1: Discover all source files'},
+    {t:'plan',d:'  Step 2: Read and analyze each file'},
+    {t:'plan',d:'  Step 3: Identify bugs, smells, security issues'},
+    {t:'plan',d:'  Step 4: Generate scored report'},
+    {t:'tool',d:'[TOOL] search_files **/*.js'},
+    {t:'result',d:'[✓] Found 14 source files'},
+    {t:'tool',d:'[TOOL] read_file src/agent/core.js'},
+    {t:'result',d:'[✓] Read 444 lines — analyzing patterns...'},
+    {t:'tool',d:'[TOOL] read_file src/agent/tool-registry.js'},
+    {t:'result',d:'[✓] Read 364 lines — checking error handling...'},
+    {t:'thought',d:'[THOUGHT] Found 3 potential issues: missing null checks on lines 87, 142. Inconsistent error format in tool-registry.'},
+    {t:'tool',d:'[TOOL] write_file review-report.md'},
+    {t:'result',d:'[✓] Report written — 847 bytes'},
+    {t:'thought',d:'[VERIFY] Re-reading report... confirmed 3 issues documented.'},
+    {t:'result',d:'[COMPLETE] Code quality score: 7.8/10. Report at ./review-report.md'}
+  ],jp:[
+    {t:'plan',d:'[計画] 目的の再確認: コードベースの品質レビュー'},
+    {t:'plan',d:'  ステップ1: ソースファイルの発見'},
+    {t:'plan',d:'  ステップ2: 各ファイルの読取と分析'},
+    {t:'plan',d:'  ステップ3: バグ、コードスメル、セキュリティ問題の特定'},
+    {t:'plan',d:'  ステップ4: スコア付きレポート生成'},
+    {t:'tool',d:'[ツール] search_files **/*.js'},
+    {t:'result',d:'[✓] 14ファイル発見'},
+    {t:'tool',d:'[ツール] read_file src/agent/core.js'},
+    {t:'result',d:'[✓] 444行読取 — パターン分析中...'},
+    {t:'tool',d:'[ツール] read_file src/agent/tool-registry.js'},
+    {t:'result',d:'[✓] 364行読取 — エラー処理確認中...'},
+    {t:'thought',d:'[思考] 3つの問題を発見: 87行目、142行目のnullチェック欠落。tool-registryのエラー形式不一致。'},
+    {t:'tool',d:'[ツール] write_file review-report.md'},
+    {t:'result',d:'[✓] レポート作成 — 847バイト'},
+    {t:'thought',d:'[検証] レポート再読込... 3つの問題が文書化されていることを確認。'},
+    {t:'result',d:'[完了] コード品質スコア: 7.8/10。レポート: ./review-report.md'}
+  ]},
+  analyze:{en:[
+    {t:'plan',d:'[PLAN] Objective: Analyze dataset for patterns and anomalies'},
+    {t:'tool',d:'[TOOL] read_file data/sales.csv'},
+    {t:'result',d:'[✓] Loaded 12,847 rows x 8 columns'},
+    {t:'tool',d:'[TOOL] analyze_data data/sales.csv'},
+    {t:'result',d:'[✓] Stats computed: revenue min=$12, max=$48,500, avg=$2,847'},
+    {t:'thought',d:'[THOUGHT] Detected anomaly: Q3 revenue dropped 34% vs Q2. Investigating...'},
+    {t:'tool',d:'[TOOL] run_command "sort -t, -k4 -rn data/sales.csv | head -20"'},
+    {t:'result',d:'[✓] Top 20 transactions isolated'},
+    {t:'thought',d:'[THOUGHT] Root cause identified: 3 enterprise accounts churned in August'},
+    {t:'tool',d:'[TOOL] write_file analysis-report.md'},
+    {t:'result',d:'[COMPLETE] Analysis report with 4 key findings written to ./analysis-report.md'}
+  ],jp:[
+    {t:'plan',d:'[計画] 目的: データセットのパターンと異常の分析'},
+    {t:'tool',d:'[ツール] read_file data/sales.csv'},
+    {t:'result',d:'[✓] 12,847行 x 8列を読み込み'},
+    {t:'tool',d:'[ツール] analyze_data data/sales.csv'},
+    {t:'result',d:'[✓] 統計計算: 売上 最小=$12, 最大=$48,500, 平均=$2,847'},
+    {t:'thought',d:'[思考] 異常検出: Q3売上がQ2比34%減少。調査中...'},
+    {t:'tool',d:'[ツール] run_command "sort -t, -k4 -rn data/sales.csv | head -20"'},
+    {t:'result',d:'[✓] 上位20件の取引を特定'},
+    {t:'thought',d:'[思考] 根本原因特定: 8月に3つの企業アカウントが解約'},
+    {t:'tool',d:'[ツール] write_file analysis-report.md'},
+    {t:'result',d:'[完了] 4つの重要な発見を含む分析レポートを./analysis-report.mdに作成'}
+  ]},
+  scaffold:{en:[
+    {t:'plan',d:'[PLAN] Build REST API with auth, rate limiting, tests'},
+    {t:'plan',d:'  Step 1: Create project structure'},
+    {t:'plan',d:'  Step 2: Write server with routes and middleware'},
+    {t:'plan',d:'  Step 3: Add JWT authentication'},
+    {t:'plan',d:'  Step 4: Add rate limiter'},
+    {t:'plan',d:'  Step 5: Write test suite'},
+    {t:'tool',d:'[TOOL] run_command "mkdir -p api/src/{routes,middleware,tests}"'},
+    {t:'result',d:'[✓] Directory structure created'},
+    {t:'tool',d:'[TOOL] write_file api/src/server.js'},
+    {t:'result',d:'[✓] Express server — 127 lines'},
+    {t:'tool',d:'[TOOL] write_file api/src/middleware/auth.js'},
+    {t:'result',d:'[✓] JWT auth middleware — 48 lines'},
+    {t:'tool',d:'[TOOL] write_file api/src/middleware/rateLimit.js'},
+    {t:'result',d:'[✓] Rate limiter — 32 lines'},
+    {t:'tool',d:'[TOOL] write_file api/src/tests/api.test.js'},
+    {t:'result',d:'[✓] Test suite — 89 lines, 12 test cases'},
+    {t:'thought',d:'[VERIFY] Running tests... 12/12 passed.'},
+    {t:'result',d:'[COMPLETE] API scaffolded with auth, rate limiting, 12 passing tests.'}
+  ],jp:[
+    {t:'plan',d:'[計画] 認証、レート制限、テスト付きREST APIを構築'},
+    {t:'tool',d:'[ツール] run_command "mkdir -p api/src/{routes,middleware,tests}"'},
+    {t:'result',d:'[✓] ディレクトリ構造作成'},
+    {t:'tool',d:'[ツール] write_file api/src/server.js'},
+    {t:'result',d:'[✓] Expressサーバー — 127行'},
+    {t:'tool',d:'[ツール] write_file api/src/middleware/auth.js'},
+    {t:'result',d:'[✓] JWT認証ミドルウェア — 48行'},
+    {t:'tool',d:'[ツール] write_file api/src/tests/api.test.js'},
+    {t:'result',d:'[✓] テストスイート — 89行、12テストケース'},
+    {t:'thought',d:'[検証] テスト実行中... 12/12合格。'},
+    {t:'result',d:'[完了] 認証、レート制限、12の合格テスト付きAPIをスキャフォールド。'}
+  ]},
+  refactor:{en:[
+    {t:'plan',d:'[PLAN] Refactor codebase to TypeScript with strict mode'},
+    {t:'tool',d:'[TOOL] search_files **/*.js'},
+    {t:'result',d:'[✓] Found 14 JavaScript files to convert'},
+    {t:'tool',d:'[TOOL] write_file tsconfig.json'},
+    {t:'result',d:'[✓] TypeScript config with strict: true'},
+    {t:'thought',d:'[THOUGHT] Analyzing type patterns across 14 files...'},
+    {t:'tool',d:'[TOOL] edit_file src/agent/core.js → core.ts'},
+    {t:'result',d:'[✓] Converted with 23 type annotations added'},
+    {t:'tool',d:'[TOOL] edit_file src/agent/tool-registry.js → tool-registry.ts'},
+    {t:'result',d:'[✓] Converted with 18 interfaces defined'},
+    {t:'thought',d:'[VERIFY] Running tsc --noEmit... 0 errors.'},
+    {t:'result',d:'[COMPLETE] 14 files converted to TypeScript. Zero type errors.'}
+  ],jp:[
+    {t:'plan',d:'[計画] strictモードでTypeScriptにリファクタリング'},
+    {t:'tool',d:'[ツール] search_files **/*.js'},
+    {t:'result',d:'[✓] 変換対象の14ファイルを発見'},
+    {t:'tool',d:'[ツール] write_file tsconfig.json'},
+    {t:'result',d:'[✓] strict: true のTypeScript設定'},
+    {t:'thought',d:'[思考] 14ファイルの型パターンを分析中...'},
+    {t:'tool',d:'[ツール] edit_file src/agent/core.js → core.ts'},
+    {t:'result',d:'[✓] 23の型注釈を追加して変換'},
+    {t:'thought',d:'[検証] tsc --noEmit 実行中... エラー0件。'},
+    {t:'result',d:'[完了] 14ファイルをTypeScriptに変換。型エラーゼロ。'}
+  ]}
+};
+var pgOut=document.getElementById('pg-output'),pgRunning=false;
+function runDemo(name){
+  if(pgRunning)return;
+  pgRunning=true;
+  var script=demoScripts[name][lang]||demoScripts[name]['en'];
+  pgOut.innerHTML='';
+  var i=0;
+  function step(){
+    if(i>=script.length){pgRunning=false;return}
+    var s=script[i],div=document.createElement('div');
+    div.style.color={plan:'#ffcc44',tool:'#cc88ff',result:'#44ff44',thought:'#88ccff',err:'#ff4444'}[s.t]||'#00ff41';
+    div.textContent=s.d;
+    pgOut.appendChild(div);
+    pgOut.scrollTop=pgOut.scrollHeight;
+    i++;
+    setTimeout(step,400+Math.random()*300);
+  }
+  step();
+}
+function runCustomTask(){
+  var input=document.getElementById('pg-input'),val=input.value.trim();
+  if(!val||pgRunning)return;
+  input.value='';pgRunning=true;pgOut.innerHTML='';
+  var steps=lang==='en'?[
+    {t:'plan',d:'[PLAN] Objective: '+val},
+    {t:'plan',d:'  Decomposing into subtasks...'},
+    {t:'tool',d:'[TOOL] search_files **/*'},
+    {t:'result',d:'[✓] Workspace scanned'},
+    {t:'thought',d:'[THOUGHT] Analyzing requirements...'},
+    {t:'tool',d:'[TOOL] Executing primary operation...'},
+    {t:'result',d:'[✓] Operation complete'},
+    {t:'thought',d:'[VERIFY] Checking output against requirements...'},
+    {t:'result',d:'[COMPLETE] Task finished. Mr. Stix handled it.'}
+  ]:[
+    {t:'plan',d:'[計画] 目的: '+val},
+    {t:'plan',d:'  サブタスクに分解中...'},
+    {t:'tool',d:'[ツール] search_files **/*'},
+    {t:'result',d:'[✓] ワークスペーススキャン完了'},
+    {t:'thought',d:'[思考] 要件を分析中...'},
+    {t:'tool',d:'[ツール] 主要操作を実行中...'},
+    {t:'result',d:'[✓] 操作完了'},
+    {t:'thought',d:'[検証] 要件に対して出力を確認中...'},
+    {t:'result',d:'[完了] タスク完了。Mr. Stixが処理しました。'}
+  ];
+  var i=0;
+  function go(){if(i>=steps.length){pgRunning=false;return}var s=steps[i],d=document.createElement('div');d.style.color={plan:'#ffcc44',tool:'#cc88ff',result:'#44ff44',thought:'#88ccff'}[s.t]||'#0f0';d.textContent=s.d;pgOut.appendChild(d);pgOut.scrollTop=pgOut.scrollHeight;i++;setTimeout(go,500+Math.random()*400)}
+  go();
+}
+
+// ─── DRAGGABLE + WALKING STIX ───
+(function(){
+  var stix=document.getElementById('walkingStix');
+  var isDragging=false,dragOffX=0,dragOffY=0;
+  var posX=200,posY=window.innerHeight-170,dirX=1,speed=1.2;
+  var walking=true,idleTimer;
+
+  stix.style.left=posX+'px';stix.style.top=posY+'px';stix.style.bottom='auto';
+
+  // Walking loop
+  function walk(){
+    if(!isDragging&&walking){
+      posX+=dirX*speed;
+      // Bounce off edges (account for taskbar)
+      if(posX>window.innerWidth-100){dirX=-1;stix.style.transform='scaleX(-1)'}
+      if(posX<10){dirX=1;stix.style.transform='scaleX(1)'}
+      stix.style.left=posX+'px';
+    }
+    requestAnimationFrame(walk);
+  }
+  walk();
+
+  // Random direction changes and pauses
+  setInterval(function(){
+    if(isDragging)return;
+    var r=Math.random();
+    if(r<0.15){dirX*=-1;stix.style.transform=dirX>0?'scaleX(1)':'scaleX(-1)'}
+    else if(r<0.25){walking=false;clearTimeout(idleTimer);idleTimer=setTimeout(function(){walking=true},2000+Math.random()*3000)}
+  },3000);
+
+  // Drag handlers
+  stix.addEventListener('mousedown',function(e){
+    isDragging=true;walking=false;stix.classList.add('dragging');
+    dragOffX=e.clientX-posX;dragOffY=e.clientY-parseInt(stix.style.top);
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!isDragging)return;
+    posX=e.clientX-dragOffX;
+    var newY=e.clientY-dragOffY;
+    stix.style.left=posX+'px';stix.style.top=newY+'px';
+  });
+  document.addEventListener('mouseup',function(){
+    if(!isDragging)return;
+    isDragging=false;stix.classList.remove('dragging');
+    setTimeout(function(){walking=true},500);
+  });
+
+  // Double-click to make him speak
+  stix.addEventListener('dblclick',function(){
+    var bubble=stix.querySelector('.ws-bubble');
+    var quips=lang==='en'?["You found me!","Still here.","I see everything.","Need something done?","I don't rest.","Click the ⚡ icon to try me live."]:["見つけた！","まだここ。","全部見えます。","何か必要？","休みません。","⚡アイコンをクリックして試して。"];
+    bubble.textContent=quips[Math.floor(Math.random()*quips.length)];
+    bubble.style.opacity='1';
+    setTimeout(function(){bubble.style.opacity='0'},3000);
+  });
+})();
 </script>
 </body>
 </html>
