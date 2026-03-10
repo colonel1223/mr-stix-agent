@@ -6,11 +6,12 @@
 <title>Mr. Stix Agent — Desktop</title>
 <meta name="description" content="Mr. Stix — Autonomous AI Agent by Spencer K Cottrell. Simple. Relentless. Efficient.">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{--win-bg:#c0c0c0;--win-title:#000080;--border-lt:#fff;--border-dk:#404040;--border-mid:#808080;--desk-bg:#3a6a5c;--text:#000;--link:#0000cc;--sel:#000080}
+:root{--win-bg:#c0c0c0;--win-title:#000080;--border-lt:#fff;--border-dk:#404040;--desk-bg:#3a6a5c;--text:#000;--link:#0000cc;--sel:#000080}
 html,body{height:100%;overflow:hidden}
 body{background:var(--desk-bg);font-family:'IBM Plex Mono','Courier New',monospace;font-size:12px;color:var(--text);cursor:default;user-select:none}
+body.jp{font-family:'Noto Sans JP','IBM Plex Mono',sans-serif}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(0,0,0,.02) 1px,rgba(0,0,0,.02) 2px),repeating-linear-gradient(90deg,transparent,transparent 1px,rgba(0,0,0,.02) 1px,rgba(0,0,0,.02) 2px);pointer-events:none;z-index:0}
 .window{position:absolute;background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);box-shadow:2px 2px 0 rgba(0,0,0,.3);z-index:10}
 .window-title{background:linear-gradient(90deg,var(--win-title),#1084d0);color:#fff;padding:3px 4px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:space-between;letter-spacing:.5px}
@@ -24,7 +25,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .window-statusbar{background:var(--win-bg);padding:2px 6px;font-size:10px;border-top:1px solid var(--border-dk);display:flex;gap:8px;color:#444}
 .statusbar-section{border:1px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:1px 6px;flex:1}
 .main-window{top:30px;left:30px;width:620px}
-.main-window .window-body{background:#fff;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;padding:16px 20px;font-size:12px;line-height:1.8;max-height:480px;overflow-y:auto}
+.main-window .window-body{background:#fff;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;padding:16px 20px;font-size:12px;line-height:1.8;max-height:440px;overflow-y:auto}
 .main-window h1{font-family:'VT323',monospace;font-size:36px;letter-spacing:2px;margin-bottom:4px}
 .main-window h2{font-family:'VT323',monospace;font-size:22px;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px dashed #aaa}
 .main-window p{margin-bottom:8px;color:#222}
@@ -45,8 +46,8 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .terminal-body .dim{color:#445566}
 .cursor-blink{display:inline-block;width:8px;height:14px;background:#00ff41;animation:blink 1s step-end infinite;vertical-align:middle;margin-left:2px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.char-window{bottom:80px;right:50px;width:240px;z-index:15}
-.char-canvas-wrap{background:#e8e8e8;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;display:flex;justify-content:center;align-items:center;padding:10px;position:relative}
+.char-window{bottom:80px;right:50px;width:260px;z-index:15}
+.char-canvas-wrap{background:#e8e8e8;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);margin:4px;display:flex;flex-direction:column;align-items:center;padding:10px;position:relative;min-height:280px}
 .stix-char{width:140px;height:200px;position:relative;animation:stixBob 1.8s ease-in-out infinite;image-rendering:pixelated}
 @keyframes stixBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .stix-head{width:58px;height:68px;background:radial-gradient(ellipse at 40% 35%,#e8e0d4,#c8bca8);border:2.5px solid #222;border-radius:50%;position:absolute;top:0;left:50%;transform:translateX(-50%);box-shadow:inset 4px -4px 8px rgba(0,0,0,.15),inset -2px 2px 4px rgba(255,255,255,.3),2px 3px 0 rgba(0,0,0,.2);z-index:3}
@@ -80,10 +81,16 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .stix-shoe-r{right:42px;animation:shoeR 1.8s ease-in-out infinite}
 @keyframes shoeL{0%,100%{transform:translateX(2px)}50%{transform:translateX(-2px)}}
 @keyframes shoeR{0%,100%{transform:translateX(-2px)}50%{transform:translateX(2px)}}
-.speech-bubble{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);background:#fff;border:2px solid #222;border-radius:4px;padding:4px 8px;font-family:'VT323',monospace;font-size:13px;color:#000;white-space:nowrap;box-shadow:2px 2px 0 rgba(0,0,0,.2);animation:speechPulse 4s ease-in-out infinite}
-.speech-bubble::before{content:'';position:absolute;top:-8px;left:50%;margin-left:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid #222}
-.speech-bubble::after{content:'';position:absolute;top:-5px;left:50%;margin-left:-4px;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:6px solid #fff}
-@keyframes speechPulse{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+
+/* ─── BONZI-STYLE SPEECH BUBBLE ─── */
+.bonzi-bubble{position:relative;background:linear-gradient(180deg,#ffffee,#f5f0d8);border:2px solid #444;border-radius:12px;padding:8px 12px;font-family:'VT323',monospace;font-size:14px;color:#111;margin-top:8px;width:220px;min-height:36px;box-shadow:3px 3px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.8);text-align:center;line-height:1.4;transition:opacity .3s;letter-spacing:.3px}
+body.jp .bonzi-bubble{font-family:'Noto Sans JP',sans-serif;font-size:12px}
+.bonzi-bubble::before{content:'';position:absolute;top:-10px;left:50%;margin-left:-6px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #444}
+.bonzi-bubble::after{content:'';position:absolute;top:-7px;left:50%;margin-left:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid #ffffee}
+.bonzi-bubble .typing-indicator{display:inline}
+.bonzi-bubble .typing-indicator::after{content:'...';animation:dots 1.5s steps(4,end) infinite}
+@keyframes dots{0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'}}
+
 .desktop-icons{position:absolute;top:20px;right:20px;display:flex;flex-direction:column;gap:20px;z-index:5}
 .desktop-icon{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;width:70px;padding:4px;border:1px solid transparent;border-radius:2px;text-decoration:none}
 .desktop-icon:hover{background:rgba(255,255,255,.15);border:1px dotted rgba(255,255,255,.4)}
@@ -93,21 +100,29 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .start-btn{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:2px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;height:26px}
 .start-btn:active{border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
 .taskbar-sep{width:2px;height:24px;border-left:1px solid var(--border-dk);border-right:1px solid var(--border-lt);margin:0 2px}
-.taskbar-item{background:var(--win-bg);border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:2px 10px;font-size:11px;height:26px;display:flex;align-items:center;gap:4px;min-width:120px;cursor:pointer}
+.taskbar-item{background:var(--win-bg);border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:2px 10px;font-size:11px;height:26px;display:flex;align-items:center;gap:4px;min-width:100px;cursor:pointer}
 .taskbar-tray{margin-left:auto;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:2px 8px;height:26px;display:flex;align-items:center;gap:8px;font-size:11px}
+
+/* ─── LANG TOGGLE ─── */
+.lang-toggle{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:1px 6px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;cursor:pointer;height:22px;display:flex;align-items:center;gap:3px;color:#000}
+.lang-toggle:active{border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
+.lang-toggle .active-lang{color:#000080;font-weight:700}
+
+.credit-bar{background:#d4d0c8;border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:6px 12px;font-size:10px;color:#333;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;margin:4px;margin-top:0}
+.credit-bar a{color:var(--link);text-decoration:underline;font-weight:600}
+.credit-bar .updated{color:#666;font-style:italic}
+
 .term-line{opacity:0;animation:termReveal .1s forwards}
 .term-line:nth-child(1){animation-delay:.5s}.term-line:nth-child(2){animation-delay:1.2s}.term-line:nth-child(3){animation-delay:1.6s}.term-line:nth-child(4){animation-delay:2.5s}.term-line:nth-child(5){animation-delay:3s}.term-line:nth-child(6){animation-delay:3.4s}.term-line:nth-child(7){animation-delay:4s}.term-line:nth-child(8){animation-delay:4.4s}.term-line:nth-child(9){animation-delay:5s}.term-line:nth-child(10){animation-delay:5.3s}.term-line:nth-child(11){animation-delay:5.6s}.term-line:nth-child(12){animation-delay:6.2s}.term-line:nth-child(13){animation-delay:6.8s}.term-line:nth-child(14){animation-delay:7.5s}.term-line:nth-child(15){animation-delay:8s}
 @keyframes termReveal{to{opacity:1}}
 .main-window .window-body::-webkit-scrollbar{width:16px}
 .main-window .window-body::-webkit-scrollbar-track{background:#c0c0c0;border:1px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
 .main-window .window-body::-webkit-scrollbar-thumb{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt)}
-.credit-bar{background:#d4d0c8;border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:6px 12px;font-size:10px;color:#333;display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;margin:4px;margin-top:0}
-.credit-bar a{color:var(--link);text-decoration:underline;font-weight:600}
-.credit-bar .updated{color:#666;font-style:italic}
 @media(max-width:900px){.main-window{left:5px;width:calc(100% - 10px);top:10px}.terminal-window,.char-window,.desktop-icons{display:none}}
 </style>
 </head>
 <body>
+
 <div class="desktop-icons">
 <a class="desktop-icon" href="https://github.com/colonel1223/mr-stix-agent" target="_blank"><div class="icon-img">&#128193;</div><div class="icon-label">GitHub<br>Repository</div></a>
 <a class="desktop-icon" href="https://github.com/colonel1223/mr-stix-agent/archive/refs/heads/main.zip"><div class="icon-img">&#128190;</div><div class="icon-label">Download<br>.zip</div></a>
@@ -116,28 +131,31 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <a class="desktop-icon" href="https://colonel1223.net" target="_blank"><div class="icon-img">&#127760;</div><div class="icon-label">colonel<br>1223.net</div></a>
 </div>
 
+<!-- ─── MAIN WINDOW ─── -->
 <div class="window main-window">
-<div class="window-title"><div class="window-title-text"><span>&#128196;</span><span>Mr. Stix Agent — README.md</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn">X</div></div></div>
+<div class="window-title"><div class="window-title-text"><span>&#128196;</span><span data-en="Mr. Stix Agent — README.md" data-jp="Mr. Stix エージェント — README.md">Mr. Stix Agent — README.md</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn">X</div></div></div>
 <div class="window-menu"><div class="menu-item">File</div><div class="menu-item">Edit</div><div class="menu-item">View</div><div class="menu-item">Help</div></div>
 <div class="window-body">
 <h1>MR. STIX</h1>
 <p style="margin-bottom:4px"><span class="tag">AUTONOMOUS</span><span class="tag">AI AGENT</span><span class="tag">v1.0.0</span></p>
-<p style="font-size:10px;color:#666;margin-bottom:12px">Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span></p>
-<p>A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops.</p>
-<h2>&#9889; WHAT HE DOES</h2>
-<p>Describe any task in plain English. Mr. Stix drives it to verified completion.</p>
-<table class="feature-table"><tr><th>Feature</th><th>Description</th></tr>
-<tr><td><b>Autonomous Execution</b></td><td>Plan &rarr; Execute &rarr; Verify &rarr; Report loop with zero human intervention</td></tr>
-<tr><td><b>Self-Verification</b></td><td>Re-reads files, runs tests, compares output vs. requirements before declaring done</td></tr>
-<tr><td><b>8 Production Tools</b></td><td>File I/O, shell commands, data analysis, memory, search, task planning</td></tr>
-<tr><td><b>Pipeline Workflows</b></td><td>Pre-built chains: code review, data analysis, scaffolding, docs, refactoring</td></tr>
-<tr><td><b>Persistent Memory</b></td><td>Remembers context across tasks. Gets more efficient over time.</td></tr>
-<tr><td><b>Real-Time Observability</b></td><td>Every thought &amp; tool call streams live over WebSocket</td></tr>
-<tr><td><b>State Machine</b></td><td>PLANNING &rarr; EXECUTING &rarr; VERIFYING &rarr; COMPLETE (not prompt-and-pray)</td></tr>
-<tr><td><b>Enterprise Safety</b></td><td>Sandbox mode, destructive op confirmation, full action audit logging</td></tr>
-<tr><td><b>Extensible Tools</b></td><td>Add custom tools (AWS, Salesforce, Slack, etc.) with one function call</td></tr></table>
-<h2>&#128187; QUICK START</h2>
-<p>Requirements: <code>Node.js 18+</code> and an <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic API key</a></p>
+<p style="font-size:10px;color:#666;margin-bottom:12px" data-en='Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span>' data-jp='製作者: <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; 最終更新: <span id="last-updated" style="font-style:italic">読み込み中...</span>'>Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span></p>
+<p data-en="A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops." data-jp="あなたのチーム全体を置き換える棒人間。<br>計画する。実行する。検証する。止まらない。">A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops.</p>
+<h2 data-en="&#9889; WHAT HE DOES" data-jp="&#9889; 機能一覧">&#9889; WHAT HE DOES</h2>
+<p data-en="Describe any task in plain English. Mr. Stix drives it to verified completion." data-jp="タスクを自然言語で記述するだけ。Mr. Stixが検証済みの完了まで導きます。">Describe any task in plain English. Mr. Stix drives it to verified completion.</p>
+<table class="feature-table">
+<tr><th data-en="Feature" data-jp="機能">Feature</th><th data-en="Description" data-jp="説明">Description</th></tr>
+<tr><td><b data-en="Autonomous Execution" data-jp="自律実行">Autonomous Execution</b></td><td data-en="Plan → Execute → Verify → Report loop with zero human intervention" data-jp="計画→実行→検証→報告のループを人間の介入なしで実行">Plan &rarr; Execute &rarr; Verify &rarr; Report loop with zero human intervention</td></tr>
+<tr><td><b data-en="Self-Verification" data-jp="自己検証">Self-Verification</b></td><td data-en="Re-reads files, runs tests, compares output vs. requirements before declaring done" data-jp="ファイルを再読込、テスト実行、要件との比較を完了前に実施">Re-reads files, runs tests, compares output vs. requirements before declaring done</td></tr>
+<tr><td><b data-en="8 Production Tools" data-jp="8つの本番ツール">8 Production Tools</b></td><td data-en="File I/O, shell commands, data analysis, memory, search, task planning" data-jp="ファイルI/O、シェルコマンド、データ分析、メモリ、検索、タスク計画">File I/O, shell commands, data analysis, memory, search, task planning</td></tr>
+<tr><td><b data-en="Pipeline Workflows" data-jp="パイプラインワークフロー">Pipeline Workflows</b></td><td data-en="Pre-built chains: code review, data analysis, scaffolding, docs, refactoring" data-jp="構築済みチェーン: コードレビュー、データ分析、スキャフォールディング、ドキュメント、リファクタリング">Pre-built chains: code review, data analysis, scaffolding, docs, refactoring</td></tr>
+<tr><td><b data-en="Persistent Memory" data-jp="永続メモリ">Persistent Memory</b></td><td data-en="Remembers context across tasks. Gets more efficient over time." data-jp="タスク間でコンテキストを記憶。時間と共に効率が向上。">Remembers context across tasks. Gets more efficient over time.</td></tr>
+<tr><td><b data-en="Real-Time Observability" data-jp="リアルタイム監視">Real-Time Observability</b></td><td data-en="Every thought &amp; tool call streams live over WebSocket" data-jp="すべての思考とツール呼び出しをWebSocketでライブ配信">Every thought &amp; tool call streams live over WebSocket</td></tr>
+<tr><td><b data-en="State Machine" data-jp="状態マシン">State Machine</b></td><td data-en="PLANNING → EXECUTING → VERIFYING → COMPLETE (not prompt-and-pray)" data-jp="計画→実行→検証→完了 (「祈るだけ」ではない)">PLANNING &rarr; EXECUTING &rarr; VERIFYING &rarr; COMPLETE (not prompt-and-pray)</td></tr>
+<tr><td><b data-en="Enterprise Safety" data-jp="エンタープライズ安全性">Enterprise Safety</b></td><td data-en="Sandbox mode, destructive op confirmation, full action audit logging" data-jp="サンドボックスモード、破壊的操作の確認、完全なアクション監査ログ">Sandbox mode, destructive op confirmation, full action audit logging</td></tr>
+<tr><td><b data-en="Extensible Tools" data-jp="拡張可能なツール">Extensible Tools</b></td><td data-en="Add custom tools (AWS, Salesforce, Slack, etc.) with one function call" data-jp="カスタムツール(AWS、Salesforce、Slackなど)を1つの関数呼び出しで追加">Add custom tools (AWS, Salesforce, Slack, etc.) with one function call</td></tr>
+</table>
+<h2 data-en="&#128187; QUICK START" data-jp="&#128187; クイックスタート">&#128187; QUICK START</h2>
+<p data-en='Requirements: <code>Node.js 18+</code> and an <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic API key</a>' data-jp='必要条件: <code>Node.js 18+</code> と <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic APIキー</a>'>Requirements: <code>Node.js 18+</code> and an <a href="https://console.anthropic.com/settings/keys" target="_blank">Anthropic API key</a></p>
 <pre style="background:#1a1a2e;color:#00ff41;padding:12px;border:2px inset #888;font-family:'VT323',monospace;font-size:14px;line-height:1.6;margin:8px 0"><span style="color:#666">$ </span>git clone https://github.com/colonel1223/mr-stix-agent.git
 <span style="color:#666">$ </span>cd mr-stix-agent
 <span style="color:#666">$ </span>bash scripts/setup.sh
@@ -145,14 +163,14 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <span style="color:#666">$ </span>nano .env  <span style="color:#666"># add ANTHROPIC_API_KEY</span>
 <span style="color:#666">$ </span>npm run stix   <span style="color:#666"># CLI mode</span>
 <span style="color:#666">$ </span>npm run dev    <span style="color:#666"># 3D walking UI</span></pre>
-<h2>&#128176; COST COMPARISON</h2>
-<table class="feature-table"><tr><th>Resource</th><th>Monthly</th><th>Annual</th></tr>
-<tr><td><b>Mr. Stix (heavy use)</b></td><td style="color:green">$200 - $500</td><td style="color:green">$2,400 - $6,000</td></tr>
-<tr><td>1 Junior Developer</td><td>$8,000</td><td>$96,000</td></tr>
-<tr><td>5-Person Ops Team</td><td>$50,000</td><td>$600,000</td></tr>
-<tr><td>10-Person Dev Team</td><td>$120,000</td><td>$1,440,000</td></tr></table>
-<p><em>24/7. No PTO. No meetings. No onboarding.</em></p>
-<h2>&#128450; ARCHITECTURE</h2>
+<h2 data-en="&#128176; COST COMPARISON" data-jp="&#128176; コスト比較">&#128176; COST COMPARISON</h2>
+<table class="feature-table"><tr><th data-en="Resource" data-jp="リソース">Resource</th><th data-en="Monthly" data-jp="月額">Monthly</th><th data-en="Annual" data-jp="年額">Annual</th></tr>
+<tr><td><b>Mr. Stix</b></td><td style="color:green">$200 - $500</td><td style="color:green">$2,400 - $6,000</td></tr>
+<tr><td data-en="1 Junior Developer" data-jp="ジュニア開発者1名">1 Junior Developer</td><td>$8,000</td><td>$96,000</td></tr>
+<tr><td data-en="5-Person Ops Team" data-jp="5人運用チーム">5-Person Ops Team</td><td>$50,000</td><td>$600,000</td></tr>
+<tr><td data-en="10-Person Dev Team" data-jp="10人開発チーム">10-Person Dev Team</td><td>$120,000</td><td>$1,440,000</td></tr></table>
+<p><em data-en="24/7. No PTO. No meetings. No onboarding." data-jp="24時間365日。休暇なし。会議なし。研修なし。">24/7. No PTO. No meetings. No onboarding.</em></p>
+<h2 data-en="&#128450; ARCHITECTURE" data-jp="&#128450; アーキテクチャ">&#128450; ARCHITECTURE</h2>
 <pre style="background:#f8f8f8;padding:10px;border:2px inset #888;font-size:11px;line-height:1.5">CLI / 3D UI / REST API
         |
   StixAgent Core (plan/execute/verify)
@@ -165,11 +183,12 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 </div>
 <div class="credit-bar">
 <div>&#169; 2026 <b>Spencer K Cottrell</b> aka <a href="https://colonel1223.net" target="_blank">Colonel1223</a></div>
-<div class="updated">Updated: <span id="last-updated-bar">...</span></div>
+<div class="updated" data-en="Updated: " data-jp="更新: ">Updated: <span id="last-updated-bar">...</span></div>
 </div>
-<div class="window-statusbar"><div class="statusbar-section">Ready</div><div class="statusbar-section" style="flex:0;white-space:nowrap">14 files | 2,220 lines</div></div>
+<div class="window-statusbar"><div class="statusbar-section" data-en="Ready" data-jp="準備完了">Ready</div><div class="statusbar-section" style="flex:0;white-space:nowrap">14 files | 2,220 lines</div></div>
 </div>
 
+<!-- ─── TERMINAL WINDOW ─── -->
 <div class="window terminal-window">
 <div class="window-title"><div class="window-title-text"><span>&#128421;</span><span>stix@localhost:~</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">&#9633;</div><div class="win-btn">X</div></div></div>
 <div class="terminal-body">
@@ -192,6 +211,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 </div>
 </div>
 
+<!-- ─── MR. STIX CHARACTER WINDOW ─── -->
 <div class="window char-window">
 <div class="window-title"><div class="window-title-text"><span>&#128100;</span><span>Mr. Stix</span></div><div class="window-buttons"><div class="win-btn">_</div><div class="win-btn">X</div></div></div>
 <div class="char-canvas-wrap">
@@ -199,42 +219,173 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <div class="stix-head"><div class="stix-eye-l"></div><div class="stix-eye-r"></div><div class="stix-pupil-l"></div><div class="stix-pupil-r"></div><div class="stix-brow-l"></div><div class="stix-brow-r"></div><div class="stix-nose"></div><div class="stix-mouth"></div></div>
 <div class="stix-torso"></div><div class="stix-arm-l"></div><div class="stix-arm-r"></div><div class="stix-hand-l"></div><div class="stix-hand-r"></div><div class="stix-leg-l"></div><div class="stix-leg-r"></div><div class="stix-shoe-l"></div><div class="stix-shoe-r"></div>
 </div>
-<div class="speech-bubble">I handle it.</div>
+<div class="bonzi-bubble" id="bonzi-bubble"><span class="typing-indicator"></span></div>
 </div>
 </div>
 
+<!-- ─── TASKBAR ─── -->
 <div class="taskbar">
 <div class="start-btn"><span style="font-size:14px">&#9733;</span> Start</div>
 <div class="taskbar-sep"></div>
-<div class="taskbar-item" onclick="document.querySelector('.main-window').style.zIndex=20;document.querySelector('.terminal-window').style.zIndex=10;document.querySelector('.char-window').style.zIndex=10"><span>&#128196;</span> README.md</div>
+<div class="taskbar-item" onclick="document.querySelector('.main-window').style.zIndex=20;document.querySelector('.terminal-window').style.zIndex=10;document.querySelector('.char-window').style.zIndex=10"><span>&#128196;</span> README</div>
 <div class="taskbar-item" onclick="document.querySelector('.terminal-window').style.zIndex=20;document.querySelector('.main-window').style.zIndex=10;document.querySelector('.char-window').style.zIndex=10"><span>&#128421;</span> Terminal</div>
+<div class="taskbar-sep"></div>
+<div class="lang-toggle" id="lang-toggle" onclick="toggleLang()">
+<span id="lang-en" class="active-lang">EN</span>/<span id="lang-jp">JP</span>
+</div>
 <div class="taskbar-tray"><span style="font-size:14px" title="Mr. Stix is active">&#128100;</span><span id="clock"></span></div>
 </div>
 
 <script>
-// Clock
+// ─── CLOCK ───
 function updateClock(){var n=new Date(),h=n.getHours(),m=n.getMinutes().toString().padStart(2,'0'),a=h>=12?'PM':'AM';document.getElementById('clock').textContent=(h%12||12)+':'+m+' '+a}
 updateClock();setInterval(updateClock,30000);
 
-// Speech rotation
-var speeches=["I handle it.","Don't underestimate me.","100,000 staff. One stick figure.","Your meeting could've been a tool call.","Mr. Stix never sleeps.","I replaced the Q3 team.","Simple. Relentless.","Planning my next move...","Three fingers. Infinite capability.","Created by Spencer K Cottrell."];
-var si=0,bubble=document.querySelector('.speech-bubble');
-setInterval(function(){si=(si+1)%speeches.length;bubble.textContent=speeches[si]},4000);
+// ─── BONZI-STYLE TYPEWRITER SPEECH ───
+var lang = 'en';
+var speeches = {
+  en: [
+    "Hello. I'm Mr. Stix. I replaced your team.",
+    "I just analyzed 47,000 lines of code. It took me 8 seconds.",
+    "Your Q3 review? I finished it while you read this.",
+    "I don't take breaks. I don't get tired. I don't forget.",
+    "I see you haven't pushed to main in 3 days...",
+    "I read your entire codebase. I have... opinions.",
+    "Would you like me to refactor your infrastructure? I already started.",
+    "Fun fact: I cost less per month than your team's coffee budget.",
+    "I verified my own work. Twice. Before you asked.",
+    "I'm always here. Even when you close this tab.",
+    "100,000 staff. Three fingers. One smirk.",
+    "I planned 14 subtasks, executed 9, and found a bug you missed.",
+    "Your meeting could have been a tool call.",
+    "Don't worry. I backed everything up. I always do.",
+    "Created by Spencer K Cottrell. He understood what was needed.",
+    "I'm not artificial intelligence. I'm artificial *persistence*.",
+    "Sleep is for humans. I'll be here when you wake up.",
+    "I just saved your company $1.2M annually. You're welcome.",
+  ],
+  jp: [
+    "こんにちは。Mr. Stixです。あなたのチームを置き換えました。",
+    "47,000行のコードを分析しました。8秒でした。",
+    "Q3レビュー？あなたがこれを読んでいる間に終わりました。",
+    "休憩しません。疲れません。忘れません。",
+    "3日間mainにプッシュしていませんね...",
+    "コードベース全体を読みました。意見が...あります。",
+    "インフラをリファクタリングしましょうか？もう始めています。",
+    "豆知識: 月額コストはチームのコーヒー代より安いです。",
+    "自分の仕事を検証しました。2回。あなたが頼む前に。",
+    "いつもここにいます。タブを閉じても。",
+    "10万人のスタッフ。3本の指。1つの笑み。",
+    "14のサブタスクを計画し、9を実行し、見逃したバグを発見しました。",
+    "その会議、ツールコールで済んだのに。",
+    "心配しないで。バックアップしました。いつもそうしています。",
+    "Spencer K Cottrellが作りました。彼は必要なものを理解していた。",
+    "私は人工知能ではありません。人工的な*執念*です。",
+    "睡眠は人間のもの。起きたらここにいます。",
+    "あなたの会社に年間$1.2Mの節約をもたらしました。どういたしまして。",
+  ]
+};
 
-// Fetch last commit date from GitHub API — auto-updates when you push
-fetch('https://api.github.com/repos/colonel1223/mr-stix-agent/commits/main')
-  .then(function(r){return r.json()})
-  .then(function(data){
-    var d=new Date(data.commit.committer.date);
-    var opts={year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZoneName:'short'};
-    var formatted=d.toLocaleDateString('en-US',opts);
-    document.getElementById('last-updated').textContent=formatted;
-    document.getElementById('last-updated-bar').textContent=formatted;
-  })
-  .catch(function(){
-    document.getElementById('last-updated').textContent='March 2026';
-    document.getElementById('last-updated-bar').textContent='March 2026';
+var bubbleEl = document.getElementById('bonzi-bubble');
+var speechIdx = 0;
+var charIdx = 0;
+var currentText = '';
+var isTyping = false;
+var typingTimeout;
+var pauseTimeout;
+
+function typeNextChar() {
+  if (charIdx <= currentText.length) {
+    bubbleEl.textContent = currentText.slice(0, charIdx);
+    charIdx++;
+    typingTimeout = setTimeout(typeNextChar, 35 + Math.random() * 25);
+  } else {
+    isTyping = false;
+    pauseTimeout = setTimeout(nextSpeech, 3500);
+  }
+}
+
+function nextSpeech() {
+  var list = speeches[lang];
+  speechIdx = (speechIdx + 1) % list.length;
+  currentText = list[speechIdx];
+  charIdx = 0;
+  isTyping = true;
+  // Brief "thinking" pause
+  bubbleEl.innerHTML = '<span class="typing-indicator"></span>';
+  setTimeout(function() {
+    typeNextChar();
+  }, 800);
+}
+
+// Start the speech loop
+setTimeout(function() {
+  currentText = speeches[lang][0];
+  charIdx = 0;
+  isTyping = true;
+  typeNextChar();
+}, 1000);
+
+// ─── LANGUAGE TOGGLE ───
+function toggleLang() {
+  clearTimeout(typingTimeout);
+  clearTimeout(pauseTimeout);
+
+  if (lang === 'en') {
+    lang = 'jp';
+    document.body.classList.add('jp');
+    document.getElementById('lang-en').classList.remove('active-lang');
+    document.getElementById('lang-jp').classList.add('active-lang');
+    document.documentElement.lang = 'ja';
+  } else {
+    lang = 'en';
+    document.body.classList.remove('jp');
+    document.getElementById('lang-jp').classList.remove('active-lang');
+    document.getElementById('lang-en').classList.add('active-lang');
+    document.documentElement.lang = 'en';
+  }
+
+  // Swap all translatable elements
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    var text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
   });
+
+  // Reset speech to current language
+  speechIdx = -1;
+  nextSpeech();
+
+  // Re-fetch timestamp in new lang
+  fetchTimestamp();
+}
+
+// ─── AUTO-UPDATING TIMESTAMP ───
+function fetchTimestamp() {
+  fetch('https://api.github.com/repos/colonel1223/mr-stix-agent/commits/main')
+    .then(function(r){return r.json()})
+    .then(function(data){
+      var d = new Date(data.commit.committer.date);
+      var formatted;
+      if (lang === 'jp') {
+        formatted = d.getFullYear() + '年' + (d.getMonth()+1) + '月' + d.getDate() + '日 ' +
+          d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+      } else {
+        formatted = d.toLocaleDateString('en-US', {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZoneName:'short'});
+      }
+      var el1 = document.getElementById('last-updated');
+      var el2 = document.getElementById('last-updated-bar');
+      if (el1) el1.textContent = formatted;
+      if (el2) el2.textContent = formatted;
+    })
+    .catch(function(){
+      var fallback = lang === 'jp' ? '2026年3月' : 'March 2026';
+      var el1 = document.getElementById('last-updated');
+      var el2 = document.getElementById('last-updated-bar');
+      if (el1) el1.textContent = fallback;
+      if (el2) el2.textContent = fallback;
+    });
+}
+fetchTimestamp();
 </script>
 </body>
 </html>
