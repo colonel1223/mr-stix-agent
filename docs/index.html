@@ -213,6 +213,16 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 .chat-messages::-webkit-scrollbar-track{background:#0a0a0a}
 .chat-messages::-webkit-scrollbar-thumb{background:#1a3a1a;border:1px solid #0a0a0a}
 @media(max-width:900px){.chat-window{position:relative;left:auto;bottom:auto;width:calc(100% - 10px);margin:5px auto;order:5}.chat-window.visible{display:block}}
+
+/* ─── SKETCH ORIGIN WINDOW ─── */
+.sketch-window{bottom:60px;left:50px;width:320px;z-index:11;display:none}
+.sketch-window.visible{display:block}
+.sketch-body{margin:4px;background:#f5f0e0;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:12px;text-align:center}
+.sketch-body img{width:100%;max-width:280px;border:3px solid #222;box-shadow:3px 3px 0 rgba(0,0,0,0.3);image-rendering:auto;margin-bottom:8px}
+.sketch-caption{font-family:'VT323',monospace;font-size:14px;color:#333;line-height:1.5}
+body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
+.sketch-date{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;margin-top:6px;letter-spacing:1px}
+@media(max-width:900px){.sketch-window{position:relative;left:auto;bottom:auto;width:calc(100% - 10px);margin:5px auto;order:6}.sketch-window.visible{display:block}}
 </style>
 </head>
 <body>
@@ -238,7 +248,9 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 <div class="desktop-icon" onclick="focusWin('main')"><div class="icon-img">&#128196;</div><div class="icon-label">README<br>.md</div></div>
 <div class="desktop-icon" onclick="focusWin('terminal')"><div class="icon-img">&#128421;</div><div class="icon-label">Terminal</div></div>
 <div class="desktop-icon" onclick="togglePlayground()"><div class="icon-img">&#9889;</div><div class="icon-label" data-en="Try Stix<br>Live" data-jp="Stixを<br>試す">Try Stix<br>Live</div></div>
+<div class="desktop-icon" onclick="toggleSketch()"><div class="icon-img">&#128221;</div><div class="icon-label" data-en="Origin<br>Sketch" data-jp="起源<br>スケッチ">Origin<br>Sketch</div></div>
 <div class="desktop-icon" onclick="toggleChat()"><div class="icon-img">&#128172;</div><div class="icon-label" data-en="Chat with<br>Mr. Stix" data-jp="Stixと<br>&#12481;&#12515;&#12483;&#12488;">Chat with<br>Mr. Stix</div></div>
+<div class="desktop-icon" onclick="toggleSketch()"><div class="icon-img">&#128221;</div><div class="icon-label" data-en="Origin<br>Sketch" data-jp="起源<br>スケッチ">Origin<br>Sketch</div></div>
 <div class="desktop-icon" onclick="toggleChat()"><div class="icon-img">&#128172;</div><div class="icon-label" data-en="Chat with<br>Mr. Stix" data-jp="Stixと<br>&#12481;&#12515;&#12483;&#12488;">Chat with<br>Mr. Stix</div></div>
 <a class="desktop-icon" href="https://colonel1223.net" target="_blank"><div class="icon-img">&#127760;</div><div class="icon-label">colonel<br>1223.net</div></a>
 </div>
@@ -249,7 +261,7 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 <div class="window-menu"><div class="menu-item">File</div><div class="menu-item">Edit</div><div class="menu-item">View</div><div class="menu-item">Help</div></div>
 <div class="window-body">
 <h1>MR. STIX</h1>
-<p style="margin-bottom:4px"><span class="tag">AUTONOMOUS</span><span class="tag">AI AGENT</span><span class="tag">v1.0.0</span></p>
+<p style="margin-bottom:4px"><span class="tag">AUTONOMOUS</span><span class="tag">AI AGENT</span><span class="tag" id="version-tag">v1.0.0</span></p>
 <p style="font-size:10px;color:#666;margin-bottom:12px" data-en='Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span>' data-jp='製作者: <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; 最終更新: <span id="last-updated" style="font-style:italic">読込中...</span>'>Created by <b>Spencer K Cottrell</b> (<a href="https://colonel1223.net" target="_blank">colonel1223.net</a>) &mdash; Last updated: <span id="last-updated" style="font-style:italic">loading...</span></p>
 <p data-en="A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops." data-jp="あなたのチーム全体を置き換える棒人間。<br>計画する。実行する。検証する。止まらない。">A stick figure that replaces your entire operations team.<br>He plans. He executes. He verifies. He never stops.</p>
 <h2 data-en="&#9889; WHAT HE DOES" data-jp="&#9889; 機能一覧">&#9889; WHAT HE DOES</h2>
@@ -359,6 +371,17 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 </div>
 </div>
 
+
+<!-- ─── SKETCH ORIGIN WINDOW ─── -->
+<div class="window sketch-window" id="win-sketch">
+<div class="window-title"><div class="window-title-text"><span>&#128221;</span><span data-en="Origin — The First Sketch" data-jp="起源 — 最初のスケッチ">Origin — The First Sketch</span></div><div class="window-buttons"><div class="win-btn" onclick="toggleSketch()">X</div></div></div>
+<div class="sketch-body">
+<img src="mr-stix-sketch.png" alt="Original Mr. Stix sketch on notebook paper" id="sketch-img">
+<div class="sketch-caption" data-en="Where it all began.<br>A ballpoint pen. Notebook paper. One smirk.<br>From this sketch, an autonomous agent was born." data-jp="すべてはここから始まった。<br>ボールペン。ノート用紙。一つの笑み。<br>このスケッチから、自律型エージェントが生まれた。">Where it all began.<br>A ballpoint pen. Notebook paper. One smirk.<br>From this sketch, an autonomous agent was born.</div>
+<div class="sketch-date">SKETCHED 2026 · BY SPENCER K COTTRELL</div>
+</div>
+</div>
+
 <!-- ─── TASKBAR ─── -->
 <div class="taskbar">
 <div class="start-btn"><span style="font-size:14px">&#9733;</span> Start</div>
@@ -366,7 +389,9 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 <div class="taskbar-item" onclick="focusWin('main')"><span>&#128196;</span> README</div>
 <div class="taskbar-item" onclick="focusWin('terminal')"><span>&#128421;</span> Terminal</div>
 <div class="taskbar-item" onclick="togglePlayground()"><span>&#9889;</span> <span data-en="Try Live" data-jp="試す">Try Live</span></div>
+<div class="taskbar-item" onclick="toggleSketch()"><span>&#128221;</span> <span data-en="Origin" data-jp="起源">Origin</span></div>
 <div class="taskbar-item" onclick="toggleChat()"><span>&#128172;</span> <span data-en="Chat" data-jp="&#12481;&#12515;&#12483;&#12488;">Chat</span></div>
+<div class="taskbar-item" onclick="toggleSketch()"><span>&#128221;</span> <span data-en="Origin" data-jp="起源">Origin</span></div>
 <div class="taskbar-item" onclick="toggleChat()"><span>&#128172;</span> <span data-en="Chat" data-jp="&#12481;&#12515;&#12483;&#12488;">Chat</span></div>
 <div class="taskbar-sep"></div>
 <div class="lang-toggle" onclick="toggleLang()"><span id="lang-en" class="active-lang">EN</span>/<span id="lang-jp">JP</span></div>
@@ -1214,6 +1239,43 @@ function generateStixResponse(input){
 }
 
 function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
+
+
+// ─── SKETCH ORIGIN WINDOW ───
+function toggleSketch(){
+  var w=document.getElementById('win-sketch');
+  w.classList.toggle('visible');
+  if(w.classList.contains('visible')){zIdx++;w.style.zIndex=zIdx}
+}
+
+// ─── DYNAMIC VERSION TAG ───
+// Fetches commit count from GitHub API to generate version number
+fetch('https://api.github.com/repos/colonel1223/mr-stix-agent/commits?per_page=1')
+  .then(function(r){
+    // Get total commit count from Link header
+    var link=r.headers.get('Link');
+    var total=1;
+    if(link){
+      var match=link.match(/page=(\d+)>; rel="last"/);
+      if(match) total=parseInt(match[1]);
+    }
+    return r.json().then(function(data){
+      var d=new Date(data[0].commit.committer.date);
+      var month=String(d.getMonth()+1);
+      var day=String(d.getDate());
+      // Version format: v1.{commit_count}.{day_of_month}
+      var version='v1.'+total+'.'+day;
+      var el=document.getElementById('version-tag');
+      if(el) el.textContent=version;
+    });
+  })
+  .catch(function(){});
+
+// Auto-show sketch on mobile
+if(typeof isMobile!=='undefined' && isMobile){
+  document.getElementById('win-sketch').classList.add('visible');
+}
 
 </script>
 </body>
