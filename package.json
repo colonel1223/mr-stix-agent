@@ -1,0 +1,30 @@
+{
+  "name": "mr-stix-agent",
+  "version": "1.0.0",
+  "description": "Mr. Stix — Autonomous Desktop Agent",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"node src/agent/server.js\" \"npx vite\"",
+    "agent": "node src/agent/server.js",
+    "ui": "npx vite",
+    "build": "vite build",
+    "stix": "node src/agent/cli.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "express": "^4.21.0",
+    "ws": "^8.18.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.1.0",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "glob": "^11.0.0",
+    "chokidar": "^4.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "three": "^0.168.0",
+    "vite": "^5.4.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "concurrently": "^9.0.0"
+  }
+}
