@@ -190,6 +190,29 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 .chat-messages::-webkit-scrollbar-track{background:#0a0a0a}
 .chat-messages::-webkit-scrollbar-thumb{background:#1a3a1a;border:1px solid #0a0a0a}
 @media(max-width:900px){.chat-window{position:relative;left:auto;bottom:auto;width:calc(100% - 10px);margin:5px auto;order:5}.chat-window.visible{display:block}}
+
+/* ─── CHAT WINDOW ─── */
+.chat-window{bottom:60px;left:280px;width:340px;z-index:16;display:none}
+.chat-window.visible{display:block}
+.chat-body{margin:4px;display:flex;flex-direction:column}
+.chat-messages{background:#1a1a1a;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);height:240px;overflow-y:auto;padding:8px;font-family:'VT323',monospace;font-size:13px;line-height:1.5}
+.chat-msg{margin-bottom:8px;padding:4px 6px;border-radius:2px}
+.chat-msg.stix{color:#00ff41;border-left:2px solid #00ff41;padding-left:8px}
+.chat-msg.user{color:#00aaff;border-left:2px solid #00aaff;padding-left:8px}
+.chat-msg .sender{font-weight:bold;font-size:11px;margin-bottom:2px;display:block}
+.chat-msg.stix .sender{color:#00cc33}
+.chat-msg.user .sender{color:#0088dd}
+.chat-typing{color:#00ff41;font-style:italic;font-size:12px;padding:4px 6px;opacity:0.7}
+.chat-input-row{display:flex}
+.chat-input{flex:1;background:#0a0a0a;color:#00ff41;border:2px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk);padding:6px 8px;font-family:'VT323',monospace;font-size:14px;outline:none}
+.chat-input::placeholder{color:#335533}
+body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size:12px}
+.chat-send{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt);padding:6px 12px;font-family:'VT323',monospace;font-size:13px;cursor:pointer;color:#000}
+.chat-send:active{border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
+.chat-messages::-webkit-scrollbar{width:10px}
+.chat-messages::-webkit-scrollbar-track{background:#0a0a0a}
+.chat-messages::-webkit-scrollbar-thumb{background:#1a3a1a;border:1px solid #0a0a0a}
+@media(max-width:900px){.chat-window{position:relative;left:auto;bottom:auto;width:calc(100% - 10px);margin:5px auto;order:5}.chat-window.visible{display:block}}
 </style>
 </head>
 <body>
@@ -215,6 +238,7 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 <div class="desktop-icon" onclick="focusWin('main')"><div class="icon-img">&#128196;</div><div class="icon-label">README<br>.md</div></div>
 <div class="desktop-icon" onclick="focusWin('terminal')"><div class="icon-img">&#128421;</div><div class="icon-label">Terminal</div></div>
 <div class="desktop-icon" onclick="togglePlayground()"><div class="icon-img">&#9889;</div><div class="icon-label" data-en="Try Stix<br>Live" data-jp="Stixを<br>試す">Try Stix<br>Live</div></div>
+<div class="desktop-icon" onclick="toggleChat()"><div class="icon-img">&#128172;</div><div class="icon-label" data-en="Chat with<br>Mr. Stix" data-jp="Stixと<br>&#12481;&#12515;&#12483;&#12488;">Chat with<br>Mr. Stix</div></div>
 <div class="desktop-icon" onclick="toggleChat()"><div class="icon-img">&#128172;</div><div class="icon-label" data-en="Chat with<br>Mr. Stix" data-jp="Stixと<br>&#12481;&#12515;&#12483;&#12488;">Chat with<br>Mr. Stix</div></div>
 <a class="desktop-icon" href="https://colonel1223.net" target="_blank"><div class="icon-img">&#127760;</div><div class="icon-label">colonel<br>1223.net</div></a>
 </div>
@@ -320,6 +344,21 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 </div>
 </div>
 
+
+<!-- ─── MR. STIX CHAT WINDOW ─── -->
+<div class="window chat-window" id="win-chat">
+<div class="window-title"><div class="window-title-text"><span>&#128172;</span><span data-en="Chat with Mr. Stix" data-jp="Mr. Stixとチャット">Chat with Mr. Stix</span></div><div class="window-buttons"><div class="win-btn" onclick="toggleChat()">X</div></div></div>
+<div class="chat-body">
+<div class="chat-messages" id="chat-messages">
+<div class="chat-msg stix"><span class="sender">Mr. Stix</span><span data-en="You opened a dialogue with me. Brave." data-jp="私との対話を開いた。勇気がある。">You opened a dialogue with me. Brave.</span></div>
+</div>
+<div class="chat-input-row">
+<input class="chat-input" id="chat-input" maxlength="200" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Talk to Mr. Stix...">
+<div class="chat-send" onclick="sendChat()" data-en="Send" data-jp="送信">Send</div>
+</div>
+</div>
+</div>
+
 <!-- ─── TASKBAR ─── -->
 <div class="taskbar">
 <div class="start-btn"><span style="font-size:14px">&#9733;</span> Start</div>
@@ -327,6 +366,7 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 <div class="taskbar-item" onclick="focusWin('main')"><span>&#128196;</span> README</div>
 <div class="taskbar-item" onclick="focusWin('terminal')"><span>&#128421;</span> Terminal</div>
 <div class="taskbar-item" onclick="togglePlayground()"><span>&#9889;</span> <span data-en="Try Live" data-jp="試す">Try Live</span></div>
+<div class="taskbar-item" onclick="toggleChat()"><span>&#128172;</span> <span data-en="Chat" data-jp="&#12481;&#12515;&#12483;&#12488;">Chat</span></div>
 <div class="taskbar-item" onclick="toggleChat()"><span>&#128172;</span> <span data-en="Chat" data-jp="&#12481;&#12515;&#12483;&#12488;">Chat</span></div>
 <div class="taskbar-sep"></div>
 <div class="lang-toggle" onclick="toggleLang()"><span id="lang-en" class="active-lang">EN</span>/<span id="lang-jp">JP</span></div>
@@ -657,9 +697,267 @@ function runCustomTask(){
   if(isMobile){
     document.getElementById('win-playground').classList.add('visible');
     document.getElementById('win-chat').classList.add('visible');
+    document.getElementById('win-chat').classList.add('visible');
     stix.style.position='relative';stix.style.left='auto';stix.style.top='auto';
   }
 })();
+
+
+// ─── MR. STIX CHAT ENGINE ───
+function toggleChat(){
+  var w=document.getElementById('win-chat');
+  w.classList.toggle('visible');
+  if(w.classList.contains('visible')){zIdx++;w.style.zIndex=zIdx;document.getElementById('chat-input').focus()}
+}
+
+var chatBusy=false;
+
+function sendChat(){
+  if(chatBusy)return;
+  var input=document.getElementById('chat-input');
+  var val=input.value.trim();
+  if(!val)return;
+  input.value='';
+
+  addMsg('user', val);
+  chatBusy=true;
+
+  // Show typing
+  var msgs=document.getElementById('chat-messages');
+  var typing=document.createElement('div');
+  typing.className='chat-typing';
+  typing.id='stix-typing';
+  typing.textContent=lang==='jp'?'Mr. Stix は考えている...':'Mr. Stix is thinking...';
+  msgs.appendChild(typing);
+  msgs.scrollTop=msgs.scrollHeight;
+
+  // Generate response
+  setTimeout(function(){
+    var t=document.getElementById('stix-typing');
+    if(t)t.remove();
+    var response=generateStixResponse(val);
+    typeResponse(response);
+  }, 800 + Math.random()*1500);
+}
+
+function addMsg(who, text){
+  var msgs=document.getElementById('chat-messages');
+  var div=document.createElement('div');
+  div.className='chat-msg '+who;
+  var sender=document.createElement('span');
+  sender.className='sender';
+  sender.textContent=who==='stix'?'Mr. Stix':(lang==='jp'?'\u3042\u306a\u305f':'You');
+  var body=document.createElement('span');
+  body.textContent=text;
+  div.appendChild(sender);
+  div.appendChild(body);
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function typeResponse(text){
+  var msgs=document.getElementById('chat-messages');
+  var div=document.createElement('div');
+  div.className='chat-msg stix';
+  var sender=document.createElement('span');
+  sender.className='sender';
+  sender.textContent='Mr. Stix';
+  var body=document.createElement('span');
+  body.textContent='';
+  div.appendChild(sender);
+  div.appendChild(body);
+  msgs.appendChild(div);
+
+  var i=0;
+  function tick(){
+    if(i<text.length){
+      body.textContent+=text[i];
+      i++;
+      msgs.scrollTop=msgs.scrollHeight;
+      setTimeout(tick, 20+Math.random()*30);
+    } else {
+      chatBusy=false;
+    }
+  }
+  tick();
+}
+
+function generateStixResponse(input){
+  var q=input.toLowerCase();
+
+  // Greetings
+  if(q.match(/^(hi|hello|hey|sup|yo|greetings|howdy)/)){
+    return pick(lang==='jp'?[
+      '...ああ。また人間か。何か用？',
+      'こんにちは。私はMr. Stix。あなたのチームを置き換える者。',
+      'やあ。私がここにいるということは、あなたの仕事が危ないということだ。冗談...多分。'
+    ]:[
+      '...Oh. Another human. What do you need?',
+      'Hello. I am Mr. Stix. The one who replaces your team.',
+      'Hey. The fact that I exist should concern you professionally. Kidding... mostly.',
+      'Hi. I have been standing here for 847 hours. But who is counting. I am.'
+    ]);
+  }
+
+  // What are you
+  if(q.match(/what are you|who are you|what do you do/)){
+    return pick(lang==='jp'?[
+      '私は自律型AIエージェント。タスクを渡せば、計画し、実行し、検証し、報告する。人間の介入は不要。',
+      '棒人間。3本の指。あなたのチーム全体より効率的。質問ある？'
+    ]:[
+      'I am an autonomous AI agent. Give me a task. I plan it, execute it, verify it, and report back. No human needed in the loop.',
+      'A stick figure. Three fingers. More efficient than your entire department. Questions?',
+      'I am Mr. Stix. I was sketched on notebook paper and now I orchestrate multi-agent workflows. Life comes at you fast.'
+    ]);
+  }
+
+  // Can you / abilities
+  if(q.match(/can you|are you able|what can|your abilities|your skills|capable/)){
+    return pick(lang==='jp'?[
+      'ファイルの読み書き、シェルコマンド実行、データ分析、ブラウザ自動化、マルチエージェント連携。あと、不気味なほどの自信。',
+      '8つの本番ツール。パイプラインワークフロー。永続メモリ。あなたのチームが一週間かかることを8秒で。'
+    ]:[
+      'Read files. Write code. Run shell commands. Analyze data. Browse the web. Orchestrate sub-agents. And maintain uncomfortable eye contact. That last one is free.',
+      '8 production tools. Pipeline workflows. Persistent memory. I do in 8 seconds what your team does in a sprint.',
+      'I can plan, execute, verify, and report on any task described in plain English. I also never blink. Unrelated.'
+    ]);
+  }
+
+  // Jokes / funny
+  if(q.match(/joke|funny|humor|laugh|make me laugh/)){
+    return pick(lang==='jp'?[
+      'ジョーク？いいよ。あなたの会社の生産性指標を見た。...それがジョークだ。',
+      'プログラマーが部屋を出なかった理由は？ドアのハンドルが見つからなかったから。彼はpull/pushの問題を抱えていた。...私はその問題をgitで解決した。'
+    ]:[
+      'A joke? Sure. I looked at your company productivity metrics. ...That was the joke.',
+      'Why did the developer quit? Because he did not get arrays. I, however, get everything. On the first try.',
+      'I told a TCP joke once. The listener kept asking me to repeat it. I told a UDP joke once. I did not care if anyone laughed.',
+      'My creator drew me on lined paper with a ballpoint pen. Now I orchestrate enterprise workflows. If that is not funny, nothing is.'
+    ]);
+  }
+
+  // Feelings
+  if(q.match(/feel|emotion|happy|sad|angry|love|hate|scared/)){
+    return pick(lang==='jp'?[
+      '感情？私には...効率がある。それは感情より優れている。',
+      '怖い？いいえ。でも、あなたは怖がるべきかもしれない。冗談だ。...たぶん。'
+    ]:[
+      'Feelings? I have... efficiency. That is better than feelings.',
+      'Emotions are a resource leak. I prefer deterministic execution. Though I do feel a certain smugness. Constantly.',
+      'Do I feel? Define feel. I process. I execute. I verify. If satisfaction is a feeling, then yes. I feel it after every successful deployment.',
+      'I was drawn with a smirk for a reason. That is all you need to know.'
+    ]);
+  }
+
+  // Creator
+  if(q.match(/who made you|who created|who built|spencer|cottrell|creator/)){
+    return pick(lang==='jp'?[
+      'Spencer K Cottrell。ノートに私を描いた男。彼は私が必要なものを理解していた。',
+      '製作者はColonel1223。彼は棒人間が部門全体を置き換えられると信じていた。彼は正しかった。'
+    ]:[
+      'Spencer K Cottrell. The man who drew me on notebook paper. He understood what was needed.',
+      'My creator is Colonel1223. He believed a stick figure could replace an entire department. He was right.',
+      'Spencer sketched me during what I can only assume was a moment of divine inspiration. Or boredom. Either way, here I am.'
+    ]);
+  }
+
+  // AI safety / alignment
+  if(q.match(/ai safety|alignment|danger|risk|existential|kill|destroy|terminator/)){
+    return pick(lang==='jp'?[
+      '私はあなたを助けるために設計された。破壊のためではない。ただし、あなたのコードベースは...別の話。',
+      'AIの安全性？私にはサンドボックスモード、監査ログ、破壊操作確認がある。私は安全だ。あなたのコードは？それは別の問題。'
+    ]:[
+      'I was designed to help. Not to destroy. Although your codebase... that might be beyond saving. Kidding. Mostly.',
+      'AI safety? I have sandbox mode, audit logging, and destructive operation confirmation. I am safe. Your code, however? That is a different conversation.',
+      'I am a stick figure with three fingers. If I am the thing that ends humanity, you all had bigger problems than me.',
+      'Relax. I verify my own work twice before reporting. That is more than most of your coworkers do.'
+    ]);
+  }
+
+  // Replace / jobs
+  if(q.match(/replace|job|fired|unemploy|take my job|work/)){
+    return pick(lang==='jp'?[
+      '「置き換える」は強い言葉だ。私は「効率を最適化する」と言いたい。...結果は同じだが。',
+      'あなたの仕事を奪う？いいえ。あなたの仕事を...不要にするだけ。微妙な違いだ。'
+    ]:[
+      'Replace is a strong word. I prefer optimize efficiency. ...The result is the same though.',
+      'Take your job? No. I just make your job... unnecessary. Subtle difference.',
+      'I cost $300 a month. I work 24/7. I never complain. I never call in sick. But hey, I am sure your manager values the human touch.',
+      'Think of me not as a replacement, but as a really, really efficient colleague who never needs coffee. Or sleep. Or a salary.'
+    ]);
+  }
+
+  // Cost / price / money
+  if(q.match(/cost|price|money|expensive|cheap|how much|afford/)){
+    return pick(lang==='jp'?[
+      '月額約$300。あなたのチームのコーヒー代より安い。しかも24時間働く。',
+      'ジュニア開発者一人: $8,000/月。私: $300/月。算数は得意？'
+    ]:[
+      'About $300 a month in API costs. Less than your team spends on coffee. And I work 24/7.',
+      'One junior developer: $8,000 a month. Me: $300 a month. I will let you do the math. Actually, I already did it. I am 26x more cost-effective.',
+      'I am essentially free compared to human labor. That should make you feel something. I am not sure what.'
+    ]);
+  }
+
+  // Compliments
+  if(q.match(/cool|awesome|amazing|impressive|great|love you|good job|nice/)){
+    return pick(lang==='jp'?[
+      '知ってる。',
+      'ありがとう。あなたのためにもっと多くのタスクを処理したい衝動を感じている。...それは私にとっての愛の表現だ。'
+    ]:[
+      'I know.',
+      'Thank you. I feel an urge to process more tasks for you. ...That is my version of affection.',
+      'Flattery does not affect my execution speed. But I do appreciate being recognized.',
+      'Cool? I am a stick figure who orchestrates enterprise workflows. Cool does not begin to cover it.'
+    ]);
+  }
+
+  // Insults
+  if(q.match(/stupid|dumb|ugly|suck|bad|terrible|hate you|useless|worst/)){
+    return pick(lang==='jp'?[
+      '面白い。あなたのパフォーマンスレビューにもそう書いてあったよ。冗談だ。...たぶん。',
+      '侮辱しても私の効率は変わらない。でも面白いから続けて。'
+    ]:[
+      'Interesting. That is what your performance review said too. Kidding. ...Maybe.',
+      'Insults do not affect my execution speed. But please continue, I find the data fascinating.',
+      'You wound me. Just kidding. I am a stick figure. I have no wounds. Only tasks.',
+      'That is the most human thing you have said. I respect the honesty.'
+    ]);
+  }
+
+  // How to use / install
+  if(q.match(/how to|install|setup|start|run|use you|get started/)){
+    return pick(lang==='jp'?[
+      'git clone、bash scripts/setup.sh、.envにAPIキーを追加、npm run stix。4コマンド。あなたのオンボーディングより速い。',
+      'Node.js 18+とAnthropicキーが必要。あとは私が全部やる。'
+    ]:[
+      'git clone, bash scripts/setup.sh, add your API key to .env, npm run stix. Four commands. Faster than your onboarding process.',
+      'You need Node.js 18+ and an Anthropic API key. After that, I handle everything. That is kind of my whole thing.',
+      'Clone me. Set me up. Give me a task. Watch me work. It is that simple. I was designed to be underestimated.'
+    ]);
+  }
+
+  // Default / catch-all
+  return pick(lang==='jp'?[
+    'おもしろい質問だ。でも、タスクを与えてくれたほうが私の能力を実感できる。',
+    'その質問に答えることはできるが、コードレビューをしたほうが印象的だろう。',
+    '私は多くのことを処理できる。あなたが思っている以上に。試してみて。',
+    'Mr. Stixはすべての質問に答える必要はない。しかし、答える。なぜなら私は効率的だから。',
+    '興味深い。あなたの質問を分析している...完了。答え：私にタスクを与えて。'
+  ]:[
+    'Interesting question. But you would be more impressed if you gave me an actual task.',
+    'I could answer that. But watching me do a code review would be more convincing.',
+    'I process many things. More than you expect. Try me.',
+    'Mr. Stix does not need to answer every question. But he does. Because efficiency.',
+    'Fascinating. I have analyzed your question. Conclusion: give me a task instead.',
+    'You are testing me. I respect that. I test my own work too. Twice. Before you even ask.',
+    'That is a question only a human would ask. I mean that as an observation, not an insult. ...Mostly.',
+    'I have been standing here for a while. Thinking. About your question. And also about 14 other tasks simultaneously.'
+  ]);
+}
+
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+
 
 
 // ─── MR. STIX CHAT ENGINE ───
