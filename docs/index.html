@@ -231,7 +231,6 @@ body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 
 /* Mobile top toggle */
 @media(max-width:900px){
-  #mobile-lang-toggle{display:block!important}
 }
 </style>
 </head>
@@ -240,7 +239,6 @@ body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 <div id="mobile-lang-toggle" style="display:none;position:fixed;top:8px;right:8px;z-index:999;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;cursor:pointer" onclick="toggleLang()"><span id="mob-lang-en" style="color:#000080;font-weight:700">EN</span> / <span id="mob-lang-jp">JP</span></div>
 
 <!-- Mobile-only EN/JP toggle -->
-<div id="mobile-lang-toggle" style="display:none;position:fixed;top:8px;right:8px;z-index:999;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;cursor:pointer" onclick="toggleLang()"><span id="mob-lang-en" style="color:#000080;font-weight:700">EN</span> / <span id="mob-lang-jp">JP</span></div>
 
 
 <!-- ─── WALKING MR. STIX (DRAGGABLE) ─── -->
@@ -459,14 +457,19 @@ function toggleLang(){
 
 // ─── TIMESTAMP ───
 function fetchTimestamp(){
-  fetch('https://api.github.com/repos/colonel1223/mr-stix-agent/commits/main')
+  fetch('https://api.github.com/repos/colonel1223/mr-stix-agent/commits/main',{cache:'no-store'})
     .then(function(r){return r.json()}).then(function(d){
       var dt=new Date(d.commit.committer.date),f;
       if(lang==='jp'){f=dt.getFullYear()+'年'+(dt.getMonth()+1)+'月'+dt.getDate()+'日'}
       else{f=dt.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}
       var e1=document.getElementById('last-updated'),e2=document.getElementById('last-updated-bar');
       if(e1)e1.textContent=f;if(e2)e2.textContent=f;
-    }).catch(function(){});
+    }).catch(function(){
+      var now=new Date();
+      var f=now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+      var e1=document.getElementById('last-updated'),e2=document.getElementById('last-updated-bar');
+      if(e1)e1.textContent=f;if(e2)e2.textContent=f;
+    });
 }
 fetchTimestamp();
 
