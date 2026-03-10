@@ -1,0 +1,47 @@
+FRAME 1 - THE OPENING STANCE
+    O
+    |
+   / \
+  /   \
+
+FRAME 2 - LEFT ARM UP
+    O
+   /|
+  / \
+ /   \
+
+FRAME 3 - BOTH ARMS UP (CELEBRATION)
+    O
+   /|\
+  / | \
+ /  |  \
+
+FRAME 4 - RIGHT ARM UP, LEFT DOWN
+    O
+    |\
+   / \
+  /   \
+
+FRAME 5 - CROSSED ARMS COOL POSE
+    O
+   \|/
+   / \
+  /   \
+
+FRAME 6 - JUMP! (LEGS BENT)
+    O
+   /|\
+   / \
+  ^   ^
+
+FRAME 7 - LANDING CROUCH
+    O
+   /|\
+  / | \
+ ^  |  ^
+
+FRAME 8 - BACK TO STANCE
+    O
+    |
+   / \
+  /   \
