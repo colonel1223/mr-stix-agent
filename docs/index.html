@@ -223,9 +223,25 @@ body.jp .chat-input::placeholder{font-family:'Noto Sans JP',sans-serif;font-size
 body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 .sketch-date{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888;margin-top:6px;letter-spacing:1px}
 @media(max-width:900px){.sketch-window{position:relative;left:auto;bottom:auto;width:calc(100% - 10px);margin:5px auto;order:6}.sketch-window.visible{display:block}}
+
+/* Mobile top toggle */
+@media(max-width:900px){
+  #mobile-lang-toggle{display:block!important}
+}
+
+/* Mobile top toggle */
+@media(max-width:900px){
+  #mobile-lang-toggle{display:block!important}
+}
 </style>
 </head>
 <body>
+<!-- Mobile-only EN/JP toggle -->
+<div id="mobile-lang-toggle" style="display:none;position:fixed;top:8px;right:8px;z-index:999;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;cursor:pointer" onclick="toggleLang()"><span id="mob-lang-en" style="color:#000080;font-weight:700">EN</span> / <span id="mob-lang-jp">JP</span></div>
+
+<!-- Mobile-only EN/JP toggle -->
+<div id="mobile-lang-toggle" style="display:none;position:fixed;top:8px;right:8px;z-index:999;background:#c0c0c0;border:2px solid;border-color:#fff #404040 #404040 #fff;padding:4px 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;cursor:pointer" onclick="toggleLang()"><span id="mob-lang-en" style="color:#000080;font-weight:700">EN</span> / <span id="mob-lang-jp">JP</span></div>
+
 
 <!-- ─── WALKING MR. STIX (DRAGGABLE) ─── -->
 <div class="walking-stix" id="walkingStix" style="left:200px;bottom:50px;">
@@ -429,6 +445,12 @@ function toggleLang(){
   lang=lang==='en'?'jp':'en';
   document.body.classList.toggle('jp',lang==='jp');
   document.getElementById('lang-en').classList.toggle('active-lang',lang==='en');
+    var me=document.getElementById('mob-lang-en'),mj=document.getElementById('mob-lang-jp');
+    if(me){me.style.color=lang==='en'?'#000080':'#000';me.style.fontWeight=lang==='en'?'700':'400'}
+    if(mj){mj.style.color=lang==='jp'?'#000080':'#000';mj.style.fontWeight=lang==='jp'?'700':'400'}
+    var me=document.getElementById('mob-lang-en'),mj=document.getElementById('mob-lang-jp');
+    if(me){me.style.color=lang==='en'?'#000080':'#000';me.style.fontWeight=lang==='en'?'700':'400'}
+    if(mj){mj.style.color=lang==='jp'?'#000080':'#000';mj.style.fontWeight=lang==='jp'?'700':'400'}
   document.getElementById('lang-jp').classList.toggle('active-lang',lang==='jp');
   document.documentElement.lang=lang==='jp'?'ja':'en';
   document.querySelectorAll('[data-en]').forEach(function(el){var t=el.getAttribute('data-'+lang);if(t)el.innerHTML=t});
