@@ -141,7 +141,32 @@ body.jp .bonzi-bubble{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 .main-window .window-body::-webkit-scrollbar{width:16px}
 .main-window .window-body::-webkit-scrollbar-track{background:#c0c0c0;border:1px solid;border-color:var(--border-dk) var(--border-lt) var(--border-lt) var(--border-dk)}
 .main-window .window-body::-webkit-scrollbar-thumb{background:var(--win-bg);border:2px solid;border-color:var(--border-lt) var(--border-dk) var(--border-dk) var(--border-lt)}
-@media(max-width:900px){.main-window{left:5px;width:calc(100% - 10px);top:10px}.terminal-window,.char-window,.desktop-icons,.walking-stix,.playground-window{display:none!important}}
+@media(max-width:900px){
+html,body{height:auto!important;overflow-y:auto!important;overflow-x:hidden!important}
+body{padding-bottom:44px}
+.desktop-icons{display:none}
+.window{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:calc(100% - 10px)!important;margin:5px auto!important;box-shadow:2px 2px 0 rgba(0,0,0,.3)!important}
+.main-window{order:1}
+.main-window .window-body{max-height:none!important}
+.terminal-window{order:2}
+.terminal-body{min-height:140px!important}
+.playground-window{order:3;display:block!important}
+.playground-window.visible{display:block!important}
+.pg-output{height:120px!important}
+.char-window{order:4;width:calc(100% - 10px)!important}
+.char-canvas-wrap{min-height:240px!important}
+.walking-stix{position:relative!important;left:auto!important;top:auto!important;bottom:auto!important;margin:10px auto!important;display:block!important;order:0}
+.ws-bubble{opacity:1!important;font-size:11px}
+.bonzi-bubble{width:calc(100% - 20px)!important}
+.taskbar{height:40px}
+.taskbar-item{min-width:60px!important;font-size:9px!important;padding:2px 5px!important}
+.start-btn{font-size:11px;padding:2px 8px}
+.hit-counter .counter-digits{font-size:10px}
+.credit-bar{flex-direction:column;gap:4px;text-align:center;font-size:9px}
+.pg-presets{flex-wrap:wrap}
+.feature-table{font-size:10px}
+.feature-table th,.feature-table td{padding:3px 5px}
+}
 </style>
 </head>
 <body>
@@ -514,11 +539,12 @@ function runCustomTask(){
   var posX=200,posY=window.innerHeight-170,dirX=1,speed=1.2;
   var walking=true,idleTimer;
 
+  var isMobile=window.innerWidth<=900;
   stix.style.left=posX+'px';stix.style.top=posY+'px';stix.style.bottom='auto';
 
-  // Walking loop
+  // Walking loop — desktop only
   function walk(){
-    if(!isDragging&&walking){
+    if(!isMobile&&!isDragging&&walking){
       posX+=dirX*speed;
       // Bounce off edges (account for taskbar)
       if(posX>window.innerWidth-100){dirX=-1;stix.style.transform='scaleX(-1)'}
@@ -555,6 +581,26 @@ function runCustomTask(){
     setTimeout(function(){walking=true},500);
   });
 
+  // Touch support for mobile
+  stix.addEventListener('touchstart',function(e){
+    var t=e.touches[0];
+    isDragging=true;walking=false;stix.classList.add('dragging');
+    dragOffX=t.clientX-posX;dragOffY=t.clientY-parseInt(stix.style.top);
+    e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchmove',function(e){
+    if(!isDragging)return;
+    var t=e.touches[0];
+    posX=t.clientX-dragOffX;
+    var newY=t.clientY-dragOffY;
+    stix.style.left=posX+'px';stix.style.top=newY+'px';
+  },{passive:true});
+  document.addEventListener('touchend',function(){
+    if(!isDragging)return;
+    isDragging=false;stix.classList.remove('dragging');
+    setTimeout(function(){walking=true},500);
+  });
+
   // Double-click to make him speak
   stix.addEventListener('dblclick',function(){
     var bubble=stix.querySelector('.ws-bubble');
@@ -563,6 +609,15 @@ function runCustomTask(){
     bubble.style.opacity='1';
     setTimeout(function(){bubble.style.opacity='0'},3000);
   });
+
+  // Resize handler
+  window.addEventListener('resize',function(){isMobile=window.innerWidth<=900});
+
+  // Auto-show playground on mobile
+  if(isMobile){
+    document.getElementById('win-playground').classList.add('visible');
+    stix.style.position='relative';stix.style.left='auto';stix.style.top='auto';
+  }
 })();
 </script>
 </body>
