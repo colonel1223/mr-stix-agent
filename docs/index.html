@@ -250,8 +250,6 @@ body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 <div class="desktop-icon" onclick="togglePlayground()"><div class="icon-img">&#9889;</div><div class="icon-label" data-en="Try Stix<br>Live" data-jp="Stixを<br>試す">Try Stix<br>Live</div></div>
 <div class="desktop-icon" onclick="toggleSketch()"><div class="icon-img">&#128221;</div><div class="icon-label" data-en="Origin<br>Sketch" data-jp="起源<br>スケッチ">Origin<br>Sketch</div></div>
 <div class="desktop-icon" onclick="toggleChat()"><div class="icon-img">&#128172;</div><div class="icon-label" data-en="Chat with<br>Mr. Stix" data-jp="Stixと<br>&#12481;&#12515;&#12483;&#12488;">Chat with<br>Mr. Stix</div></div>
-<div class="desktop-icon" onclick="toggleSketch()"><div class="icon-img">&#128221;</div><div class="icon-label" data-en="Origin<br>Sketch" data-jp="起源<br>スケッチ">Origin<br>Sketch</div></div>
-<div class="desktop-icon" onclick="toggleChat()"><div class="icon-img">&#128172;</div><div class="icon-label" data-en="Chat with<br>Mr. Stix" data-jp="Stixと<br>&#12481;&#12515;&#12483;&#12488;">Chat with<br>Mr. Stix</div></div>
 <a class="desktop-icon" href="https://colonel1223.net" target="_blank"><div class="icon-img">&#127760;</div><div class="icon-label">colonel<br>1223.net</div></a>
 </div>
 
@@ -357,18 +355,7 @@ body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 </div>
 
 
-<!-- ─── MR. STIX CHAT WINDOW ─── -->
-<div class="window chat-window" id="win-chat">
-<div class="window-title"><div class="window-title-text"><span>&#128172;</span><span data-en="Chat with Mr. Stix" data-jp="Mr. Stixとチャット">Chat with Mr. Stix</span></div><div class="window-buttons"><div class="win-btn" onclick="toggleChat()">X</div></div></div>
-<div class="chat-body">
-<div class="chat-messages" id="chat-messages">
-<div class="chat-msg stix"><span class="sender">Mr. Stix</span><span data-en="You opened a dialogue with me. Brave." data-jp="私との対話を開いた。勇気がある。">You opened a dialogue with me. Brave.</span></div>
-</div>
-<div class="chat-input-row">
-<input class="chat-input" id="chat-input" maxlength="200" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Talk to Mr. Stix...">
-<div class="chat-send" onclick="sendChat()" data-en="Send" data-jp="送信">Send</div>
-</div>
-</div>
+
 </div>
 
 
@@ -389,8 +376,6 @@ body.jp .sketch-caption{font-family:'Noto Sans JP',sans-serif;font-size:12px}
 <div class="taskbar-item" onclick="focusWin('main')"><span>&#128196;</span> README</div>
 <div class="taskbar-item" onclick="focusWin('terminal')"><span>&#128421;</span> Terminal</div>
 <div class="taskbar-item" onclick="togglePlayground()"><span>&#9889;</span> <span data-en="Try Live" data-jp="試す">Try Live</span></div>
-<div class="taskbar-item" onclick="toggleSketch()"><span>&#128221;</span> <span data-en="Origin" data-jp="起源">Origin</span></div>
-<div class="taskbar-item" onclick="toggleChat()"><span>&#128172;</span> <span data-en="Chat" data-jp="&#12481;&#12515;&#12483;&#12488;">Chat</span></div>
 <div class="taskbar-item" onclick="toggleSketch()"><span>&#128221;</span> <span data-en="Origin" data-jp="起源">Origin</span></div>
 <div class="taskbar-item" onclick="toggleChat()"><span>&#128172;</span> <span data-en="Chat" data-jp="&#12481;&#12515;&#12483;&#12488;">Chat</span></div>
 <div class="taskbar-sep"></div>
