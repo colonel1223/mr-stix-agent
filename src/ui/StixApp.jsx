@@ -39,7 +39,11 @@ function useWebSocket(url) {
     }
   }, []);
 
-  return { messages, connected, send };
+  const pushMessage = useCallback((msg) => {
+    setMessages((prev) => [...prev.slice(-200), { ...msg, timestamp: msg.timestamp ?? Date.now() }]);
+  }, []);
+
+  return { messages, connected, send, pushMessage };
 }
 
 function StixCharacter3D({ mood }) {
@@ -158,40 +162,156 @@ function StixCharacter3D({ mood }) {
   return <div ref={mountRef} />;
 }
 
+function formatTime(ts) {
+  return new Date(ts).toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" });
+}
+
+function toolSummary(name, input) {
+  if (!input || typeof input !== "object") return name;
+  const path = input.path || input.file_path || input.file || input.pattern;
+  if (typeof path === "string") return `${name} — ${path}`;
+  const cmd = input.command;
+  if (typeof cmd === "string") return `${name} — ${cmd.slice(0, 80)}${cmd.length > 80 ? "…" : ""}`;
+  return name;
+}
+
+/** Chat-style line: humans first, Stix reads like a person, tools stay in the background. */
 function LogEntry({ msg }) {
-  const typeColors = {
-    "thought": "#88ccff",
-    "tool:call": "#cc88ff",
-    "tool:result": "#88ff88",
-    "tool:error": "#ff6666",
-    "task:start": "#ffcc44",
-    "task:complete": "#44ff88",
-    "iteration": "#666688",
-  };
+  const ts = formatTime(msg.timestamp);
 
-  const color = typeColors[msg.type] || "#888";
+  if (msg.type === "chat:user") {
+    const text = msg.data?.text ?? "";
+    return (
+      <div style={{ display: "flex", justifyContent: "flex-end", margin: "10px 0" }}>
+        <div style={{
+          maxWidth: "85%", background: "rgba(90, 140, 220, 0.2)", border: "1px solid rgba(120, 170, 255, 0.25)",
+          borderRadius: "14px 14px 4px 14px", padding: "10px 14px", fontSize: 13, lineHeight: 1.45, color: "#e8eef8",
+        }}>
+          <div style={{ fontSize: 9, color: "#7a9cc8", marginBottom: 4 }}>You · {ts}</div>
+          {text}
+        </div>
+      </div>
+    );
+  }
+
+  if (msg.type === "thought" && msg.data?.text) {
+    const text = msg.data.text.trim();
+    if (!text) return null;
+    return (
+      <div style={{ display: "flex", justifyContent: "flex-start", margin: "10px 0" }}>
+        <div style={{
+          maxWidth: "88%", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(0, 255, 120, 0.12)",
+          borderRadius: "14px 14px 14px 4px", padding: "10px 14px", fontSize: 13, lineHeight: 1.5, color: "#dce8e0",
+        }}>
+          <div style={{ fontSize: 9, color: "#5cb87a", marginBottom: 4, letterSpacing: 0.3 }}>Mr. Stix · {ts}</div>
+          <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{text}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (msg.type === "connected") {
+    return (
+      <div style={{ textAlign: "center", margin: "14px 0", fontSize: 12, color: "#6a7a88" }}>
+        <span style={{ padding: "4px 12px", background: "rgba(255,255,255,0.04)", borderRadius: 999 }}>{msg.message}</span>
+      </div>
+    );
+  }
+
+  if (msg.type === "task:start") {
+    const t = msg.data?.task ?? "";
+    return (
+      <div style={{ fontSize: 11, color: "#5a6570", margin: "6px 0 2px", paddingLeft: 4 }}>
+        <span style={{ color: "#6a8a78" }}>●</span> On it{typeof t === "string" && t ? ` — ${t.slice(0, 120)}${t.length > 120 ? "…" : ""}` : ""}
+      </div>
+    );
+  }
+
+  if (msg.type === "task:complete") {
+    const r = msg.data?.result;
+    const preview = typeof r === "string" ? r.trim().slice(0, 280) : "";
+    return (
+      <div style={{
+        margin: "12px 0", padding: "10px 12px", borderRadius: 8, fontSize: 12, lineHeight: 1.45,
+        background: "rgba(68, 255, 136, 0.06)", border: "1px solid rgba(68, 255, 136, 0.15)", color: "#b8e8c8",
+      }}>
+        <div style={{ fontWeight: 600, marginBottom: 4, color: "#7dffc4" }}>All set</div>
+        {preview ? <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>{preview}{typeof r === "string" && r.length > 280 ? "…" : ""}</div> : <div>Wrapped up.</div>}
+      </div>
+    );
+  }
+
+  if (msg.type === "task:error" || msg.type === "error") {
+    const err = msg.data?.error ?? msg.message ?? msg.type;
+    return (
+      <div style={{
+        margin: "10px 0", padding: "10px 12px", borderRadius: 8, fontSize: 12,
+        background: "rgba(255, 80, 80, 0.08)", border: "1px solid rgba(255, 100, 100, 0.2)", color: "#ffb8b8",
+      }}>
+        Something went wrong: {String(err)}
+      </div>
+    );
+  }
+
+  if (msg.type === "tool:call") {
+    const line = toolSummary(msg.data?.tool, msg.data?.input);
+    return (
+      <div style={{ fontSize: 10, color: "#5a6270", margin: "2px 0 2px 8px", fontFamily: "'Cascadia Code', 'Fira Code', monospace" }}>
+        <span style={{ color: "#6a5588" }}>↳</span> {line}
+      </div>
+    );
+  }
+
+  if (msg.type === "tool:result") {
+    const ok = msg.data?.success !== false;
+    return (
+      <div style={{ fontSize: 10, color: ok ? "#4a7058" : "#805050", margin: "0 0 4px 8px", fontFamily: "monospace" }}>
+        {ok ? "✓" : "✗"} {msg.data?.tool ?? "tool"}
+      </div>
+    );
+  }
+
+  if (msg.type === "tool:error") {
+    return (
+      <div style={{ fontSize: 10, color: "#c07070", margin: "2px 0 4px 8px", fontFamily: "monospace" }}>
+        Tool issue ({msg.data?.tool}): {msg.data?.error}
+      </div>
+    );
+  }
+
+  if (msg.type === "task:stopped" || msg.type === "task:max_iterations") {
+    const detail = msg.type === "task:max_iterations" ? "Stopped after max steps—might be incomplete." : (msg.data?.message || "Stopped.");
+    return (
+      <div style={{ fontSize: 11, color: "#a89870", margin: "8px 0" }}>{detail}</div>
+    );
+  }
+
+  if (msg.type === "task:result") {
+    const raw = msg.data?.result;
+    const snippet = raw != null ? JSON.stringify(raw).slice(0, 160) : "";
+    return (
+      <div style={{ fontSize: 11, color: "#8a9aaa", margin: "8px 0" }}>
+        Task logged{snippet ? `: ${snippet}${snippet.length >= 160 ? "…" : ""}` : "."}
+      </div>
+    );
+  }
+
   const text = msg.data?.text || msg.data?.tool || msg.data?.task || msg.message || msg.type;
-
   return (
-    <div style={{ padding: "3px 0", borderBottom: "1px solid rgba(255,255,255,0.03)", fontSize: 11, lineHeight: 1.5 }}>
-      <span style={{ color: "#555", marginRight: 6, fontFamily: "monospace", fontSize: 9 }}>
-        {new Date(msg.timestamp).toLocaleTimeString("en-US", { hour12: false })}
-      </span>
-      <span style={{ color, fontWeight: msg.type === "thought" ? "normal" : "bold", fontFamily: "monospace", fontSize: 10 }}>
-        [{msg.type}]
-      </span>
-      <span style={{ color: "#ccc", marginLeft: 6 }}>
-        {typeof text === "string" ? text.slice(0, 200) : JSON.stringify(text).slice(0, 200)}
-      </span>
+    <div style={{ padding: "4px 0", fontSize: 10, color: "#555", fontFamily: "monospace", opacity: 0.85 }}>
+      <span style={{ color: "#444" }}>{ts}</span>
+      <span style={{ marginLeft: 8 }}>{typeof text === "string" ? text.slice(0, 180) : JSON.stringify(text).slice(0, 180)}</span>
     </div>
   );
 }
 
 export default function StixApp() {
-  const { messages, connected, send } = useWebSocket(WS_URL);
+  const { messages, connected, send, pushMessage } = useWebSocket(WS_URL);
   const [task, setTask] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const logRef = useRef(null);
+
+  const visibleMessages = messages.filter((m) => m.type !== "iteration");
 
   useEffect(() => {
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
@@ -205,7 +325,9 @@ export default function StixApp() {
 
   const submitTask = () => {
     if (!task.trim() || isRunning) return;
-    send({ type: "task", task: task.trim() });
+    const text = task.trim();
+    pushMessage({ type: "chat:user", data: { text } });
+    send({ type: "task", task: text });
     setTask("");
   };
 
@@ -227,7 +349,7 @@ export default function StixApp() {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: connected ? "#44ff44" : "#ff4444", boxShadow: `0 0 6px ${connected ? "#44ff44" : "#ff4444"}` }} />
-            <span style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>Mr. Stix Agent</span>
+            <span style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>Mr. Stix</span>
           </div>
           <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 9 }}>v1.0</span>
         </div>
@@ -242,7 +364,7 @@ export default function StixApp() {
             fontSize: 12, fontWeight: "bold", marginTop: 4,
             color: isRunning ? "#ffaa44" : connected ? "#44ff88" : "#ff4444",
           }}>
-            {isRunning ? "⚡ EXECUTING" : connected ? "● READY" : "○ DISCONNECTED"}
+            {isRunning ? "On it" : connected ? "Here when you need me" : "Reconnecting…"}
           </div>
         </div>
 
@@ -257,13 +379,13 @@ export default function StixApp() {
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         {/* Task input */}
         <div style={{ padding: 16, borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <div style={{ fontSize: 10, color: "#556", marginBottom: 8, letterSpacing: 1 }}>ASSIGN TASK</div>
+          <div style={{ fontSize: 10, color: "#556", marginBottom: 8, letterSpacing: 0.5 }}>What do you want to get done?</div>
           <div style={{ display: "flex", gap: 8 }}>
             <input
               value={task}
               onChange={(e) => setTask(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && submitTask()}
-              placeholder={isRunning ? "Mr. Stix is working..." : "Tell Mr. Stix what to do..."}
+              placeholder={isRunning ? "Hang tight—still on your last ask…" : "Ask in plain language…"}
               disabled={isRunning}
               style={{
                 flex: 1, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
@@ -281,26 +403,26 @@ export default function StixApp() {
                 fontSize: 12, fontWeight: "bold", letterSpacing: 0.5,
               }}
             >
-              {isRunning ? "Working..." : "Execute"}
+              {isRunning ? "…" : "Send"}
             </button>
           </div>
         </div>
 
         {/* Live log */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <div style={{ padding: "12px 16px", fontSize: 10, color: "#556", letterSpacing: 1, borderBottom: "1px solid rgba(255,255,255,0.03)" }}>
-            LIVE AGENT LOG
+          <div style={{ padding: "12px 16px", fontSize: 10, color: "#556", letterSpacing: 0.5, borderBottom: "1px solid rgba(255,255,255,0.03)" }}>
+            Conversation
           </div>
           <div ref={logRef} style={{
             flex: 1, overflowY: "auto", padding: "8px 16px",
             fontFamily: "'Cascadia Code', 'Fira Code', monospace",
           }}>
-            {messages.length === 0 ? (
-              <div style={{ color: "#333", fontSize: 12, marginTop: 40, textAlign: "center" }}>
-                Waiting for tasks... Mr. Stix is patient. For now.
+            {visibleMessages.length === 0 ? (
+              <div style={{ color: "#556", fontSize: 13, marginTop: 48, textAlign: "center", lineHeight: 1.6, maxWidth: 320, marginLeft: "auto", marginRight: "auto" }}>
+                Type something above—code, files, research, whatever. I'll walk you through it.
               </div>
             ) : (
-              messages.map((msg, i) => <LogEntry key={i} msg={msg} />)
+              visibleMessages.map((msg, i) => <LogEntry key={i} msg={msg} />)
             )}
           </div>
         </div>
