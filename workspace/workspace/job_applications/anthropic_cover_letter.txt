@@ -1,0 +1,17 @@
+March 10, 2024
+
+Anthropic
+San Francisco, CA
+
+Dear Anthropic Hiring Team,
+
+I am writing to express my strong interest in the AI Safety Researcher position at Anthropic. Your pioneering work on Constitutional AI and the development of Claude represents exactly the kind of principled approach to AI alignment that motivates my career in AI safety research. Anthropic's commitment to building AI systems that are helpful, harmless, and honest aligns perfectly with my research focus on developing robust safety measures for large language models.
+
+My research background in AI alignment and interpretability directly complements Anthropic's current initiatives. I have extensive experience in mechanistic interpretability, having worked on understanding neural network representations and developing techniques for model inspection. My work on reward modeling and human feedback integration has prepared me to contribute meaningfully to your Constitutional AI research program. Additionally, my experience with large-scale language model safety evaluations positions me well to support Anthropic's rigorous testing protocols for Claude and future systems.
+
+What particularly draws me to Anthropic is your culture of careful, methodical research combined with a genuine commitment to beneficial AI outcomes. The Bay Area location offers unparalleled opportunities for collaboration with other leading AI safety researchers and organizations. I am inspired by your team's interdisciplinary approach, bringing together technical expertise with insights from philosophy, policy, and social sciences. Your recent work on scaling supervision and debate-based safety methods represents exactly the kind of innovative thinking needed to solve alignment challenges.
+
+I am eager to contribute to Anthropic's mission of ensuring AI systems remain beneficial as they become increasingly capable. Thank you for considering my application. I look forward to discussing how my research background and commitment to AI safety can contribute to your team's groundbreaking work.
+
+Sincerely,
+[Your Name]

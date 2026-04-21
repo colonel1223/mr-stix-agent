@@ -61,7 +61,7 @@ const clients = new Set();
 
 wss.on("connection", (ws) => {
   clients.add(ws);
-  broadcast({ type: "connected", message: "Mr. Stix sees you.", timestamp: Date.now() });
+  broadcast({ type: "connected", message: "You're in—say what you need.", timestamp: Date.now() });
 
   ws.on("message", async (data) => {
     try {

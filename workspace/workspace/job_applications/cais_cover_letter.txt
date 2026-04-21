@@ -1,0 +1,17 @@
+March 10, 2024
+
+Center for AI Safety
+San Francisco, CA
+
+Dear CAIS Hiring Team,
+
+I am writing to express my strong interest in the Research Scientist position at the Center for AI Safety. Your organization's comprehensive approach to AI safety, spanning technical research, policy advocacy, and community building, represents exactly the kind of multifaceted effort needed to address the challenges posed by increasingly capable AI systems. CAIS's work on AI safety fundamentals and your Statement on AI Risk signed by hundreds of researchers demonstrates the broad coalition necessary for meaningful progress on alignment.
+
+My research experience encompasses both the technical and broader aspects of AI safety that CAIS prioritizes. I have conducted extensive research in AI alignment, interpretability, and robustness, while also engaging with policy implications and public communication of AI safety concerns. My work on developing safety evaluations for large language models and contributing to AI safety education initiatives aligns with CAIS's mission of advancing both research and awareness. Additionally, my experience collaborating across disciplinary boundaries would support your efforts to bridge technical research with policy and public understanding.
+
+What particularly attracts me to CAIS is your role in coordinating the AI safety community and fostering collaboration between researchers, policymakers, and the public. The San Francisco location provides unique access to both technical researchers and policy stakeholders in Silicon Valley and beyond. I am inspired by your approach of combining rigorous technical research with effective communication and community engagement. Your work on the AI Safety Camp and other educational initiatives demonstrates the importance of developing the next generation of AI safety researchers.
+
+I am eager to contribute to CAIS's vital mission of reducing risks from AI systems. Thank you for considering my application. I look forward to discussing how my research background and commitment to both technical excellence and broader impact can advance your comprehensive approach to AI safety.
+
+Sincerely,
+[Your Name]

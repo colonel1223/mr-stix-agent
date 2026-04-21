@@ -1,0 +1,17 @@
+March 10, 2024
+
+DeepMind
+Mountain View, CA
+
+Dear DeepMind Hiring Manager,
+
+I am writing to express my interest in the AI Safety Research Engineer position at DeepMind. Your organization's groundbreaking research spanning from AlphaGo to Sparrow demonstrates an exceptional commitment to advancing AI capabilities while maintaining rigorous safety standards. DeepMind's interdisciplinary approach to AI safety, combining technical research with insights from neuroscience, philosophy, and ethics, represents exactly the comprehensive methodology needed to solve alignment challenges.
+
+My engineering and research background aligns closely with DeepMind's technical requirements for safety research. I have extensive experience implementing safety measures in reinforcement learning systems, developing robust evaluation frameworks, and building interpretability tools for neural networks. My work on value alignment in multi-agent systems and cooperative AI would contribute directly to DeepMind's research on AI systems that behave beneficially in complex environments. Additionally, my experience with large-scale distributed training and safety-conscious model deployment would support your engineering-focused approach to safety research.
+
+What particularly attracts me to DeepMind is your unique position within Google, providing both the resources for ambitious long-term research and the responsibility of ensuring safety measures scale with real-world deployment. The collaborative environment in Mountain View, with access to both academic partnerships and industry applications, offers unparalleled opportunities for impactful safety research. I am especially interested in contributing to your work on AI systems that can be helpful assistants while maintaining robust safety guarantees, as demonstrated in your Sparrow research.
+
+I am eager to contribute to DeepMind's mission of solving intelligence while ensuring it benefits humanity. Thank you for considering my application. I look forward to discussing how my technical background and passion for AI safety can advance your pioneering research.
+
+Sincerely,
+[Your Name]

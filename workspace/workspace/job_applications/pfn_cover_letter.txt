@@ -1,0 +1,17 @@
+March 10, 2024
+
+Preferred Networks, Inc.
+Tokyo, Japan
+
+Dear Preferred Networks Hiring Team,
+
+I am writing to express my strong interest in the AI Safety Engineer position at Preferred Networks. Your company's pioneering work in practical AI applications, from autonomous systems to deep learning frameworks like Chainer, demonstrates a commitment to developing AI technology that delivers real-world value while maintaining engineering excellence. PFN's focus on building robust, reliable AI systems that can operate safely in complex environments aligns perfectly with my research interests in practical AI safety and robustness.
+
+My engineering and research background directly supports PFN's approach to developing safe and reliable AI systems. I have extensive experience implementing safety measures in production AI systems, developing robust testing frameworks, and building monitoring systems for deployed models. My work on safety-critical applications of machine learning and experience with distributed systems engineering would contribute meaningfully to PFN's projects in autonomous vehicles, robotics, and other high-stakes applications. Additionally, my research on adversarial robustness and failure detection in AI systems would support your commitment to deploying AI safely in real-world environments.
+
+What particularly attracts me to Preferred Networks is your engineering-first approach to AI safety, focusing on building systems that are reliable and safe by design rather than retrofitting safety measures. Working in Tokyo would provide valuable experience with Japan's approach to AI development, which emphasizes careful testing and validation before deployment. I am inspired by PFN's culture of technical excellence and your commitment to open-source contributions to the AI community. Your work on practical applications like autonomous driving and industrial automation represents exactly the kind of challenging engineering problems where AI safety research must translate into robust, deployable solutions.
+
+I am eager to contribute to PFN's mission of creating AI technology that enhances society through practical, reliable applications. Thank you for considering my application. I would welcome the opportunity to discuss how my safety engineering background can support your innovative work in applied AI systems.
+
+Sincerely,
+[Your Name]
