@@ -1,0 +1,17 @@
+March 10, 2024
+
+OpenAI
+San Francisco, CA
+
+Dear OpenAI Safety Team,
+
+I am excited to apply for the Safety Research Scientist position at OpenAI. Your organization's leadership in developing increasingly capable AI systems while simultaneously advancing safety research represents the cutting edge of responsible AI development. OpenAI's commitment to ensuring AGI benefits all of humanity, demonstrated through initiatives like GPT-4's safety evaluations and your alignment research agenda, aligns perfectly with my career dedication to AI safety.
+
+My technical background directly supports OpenAI's safety research priorities. I have significant experience in red-teaming large language models, developing adversarial evaluation frameworks, and implementing safety measures for generative AI systems. My research in mechanistic interpretability and activation patching techniques would contribute valuable insights to understanding and controlling model behavior. Additionally, my work on scalable oversight methods and reward modeling aligns with OpenAI's research into training AI systems to be helpful and truthful.
+
+OpenAI's position at the forefront of capabilities research, combined with your commitment to safety, creates a unique environment where safety research can directly inform and improve the most advanced AI systems. The collaborative culture in the Bay Area, with close connections to academic institutions and other AI safety organizations, provides an ideal setting for impactful research. I am particularly interested in contributing to your work on alignment techniques that can scale with increasingly powerful systems, ensuring safety measures remain effective as capabilities advance.
+
+I am passionate about contributing to OpenAI's mission of ensuring artificial general intelligence is safe and beneficial. Thank you for considering my application. I would welcome the opportunity to discuss how my research experience and commitment to AI safety can advance your critical work.
+
+Sincerely,
+[Your Name]

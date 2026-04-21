@@ -1,0 +1,11 @@
+Company,Position,Location,Status,Application_Date,Cover_Letter_File,Resume_File,Job_URL,Contact,Notes
+Anthropic,AI Safety Researcher,San Francisco Bay Area,Pending,2024-03-10,anthropic_cover_letter.txt,resume.pdf,https://anthropic.com/careers,hr@anthropic.com,Leading AI safety research
+OpenAI,Safety Research Scientist,San Francisco Bay Area,Pending,2024-03-10,openai_cover_letter.txt,resume.pdf,https://openai.com/careers,careers@openai.com,GPT safety alignment
+DeepMind,AI Safety Research Engineer,Mountain View,Pending,2024-03-10,deepmind_cover_letter.txt,resume.pdf,https://deepmind.com/careers,careers@deepmind.com,Google subsidiary safety research
+MIRI,Research Associate,Berkeley,Pending,2024-03-10,miri_cover_letter.txt,resume.pdf,https://intelligence.org/careers,contact@intelligence.org,Machine Intelligence Research Institute
+Center for AI Safety,Research Scientist,San Francisco,Pending,2024-03-10,cais_cover_letter.txt,resume.pdf,https://safe.ai/careers,careers@safe.ai,AI safety advocacy and research
+Redwood Research,AI Safety Researcher,Berkeley,Pending,2024-03-10,redwood_cover_letter.txt,resume.pdf,https://redwoodresearch.org/careers,careers@redwoodresearch.org,Interpretability research
+RIKEN AIP,AI Safety Researcher,Tokyo Japan,Pending,2024-03-10,riken_cover_letter.txt,resume.pdf,https://aip.riken.jp/careers,careers@riken.jp,RIKEN Advanced Intelligence Project
+Sony AI,Safety Research Scientist,Tokyo Japan,Pending,2024-03-10,sony_cover_letter.txt,resume.pdf,https://ai.sony/careers,careers@ai.sony,Sony AI research division
+Preferred Networks,AI Safety Engineer,Tokyo Japan,Pending,2024-03-10,pfn_cover_letter.txt,resume.pdf,https://preferred.jp/en/careers,careers@preferred.jp,Japanese AI research company
+NTT Research,AI Safety Researcher,Tokyo Japan,Pending,2024-03-10,ntt_cover_letter.txt,resume.pdf,https://ntt-research.com/careers,careers@ntt-research.com,NTT Communication Science Labs

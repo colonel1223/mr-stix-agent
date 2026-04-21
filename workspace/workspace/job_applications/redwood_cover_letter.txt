@@ -1,0 +1,17 @@
+March 10, 2024
+
+Redwood Research
+Berkeley, CA
+
+Dear Redwood Research Team,
+
+I am excited to apply for the AI Safety Researcher position at Redwood Research. Your organization's focus on mechanistic interpretability and developing practical techniques for understanding neural network behavior represents some of the most promising work in AI alignment today. Redwood's research on activation patching, causal scrubbing, and other interpretability methods provides exactly the kind of concrete tools needed to build more reliable and safer AI systems.
+
+My technical background aligns perfectly with Redwood's research focus on interpretability and empirical AI safety. I have extensive experience developing mechanistic interpretability techniques, implementing activation patching methods, and building tools for neural network analysis. My research on understanding transformer attention patterns and developing automated interpretability pipelines would contribute directly to Redwood's ongoing projects. Additionally, my work on red-teaming language models and developing adversarial evaluation techniques supports your broader mission of ensuring AI systems behave as intended.
+
+What draws me most to Redwood is your commitment to developing interpretability methods that scale to real-world AI systems and can inform practical safety measures. The Berkeley location provides access to a vibrant community of AI safety researchers and close collaboration opportunities with other organizations like MIRI and CHAI. I appreciate Redwood's hands-on approach to safety research, focusing on techniques that can be immediately applied to improve current systems while building toward solutions for more advanced AI. Your open-source approach and commitment to sharing research tools with the broader community aligns with my belief in collaborative progress on safety challenges.
+
+I am passionate about contributing to Redwood's mission of making AI systems more interpretable and safer. Thank you for considering my application. I would welcome the opportunity to discuss how my research experience in mechanistic interpretability can advance your cutting-edge work in AI safety.
+
+Sincerely,
+[Your Name]

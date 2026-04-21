@@ -1,0 +1,17 @@
+March 10, 2024
+
+Machine Intelligence Research Institute (MIRI)
+Berkeley, CA
+
+Dear MIRI Research Team,
+
+I am excited to apply for the Research Associate position at MIRI. Your organization's pioneering work on AI alignment theory and focus on the fundamental challenges of ensuring advanced AI systems remain beneficial has profoundly influenced my approach to AI safety research. MIRI's emphasis on rigorous mathematical foundations for alignment, from decision theory to logical uncertainty, represents the kind of deep theoretical work necessary to solve the most challenging aspects of the alignment problem.
+
+My research background in formal methods and AI safety theory directly aligns with MIRI's research priorities. I have extensive experience working with logical frameworks for AI decision-making, developing formal models of value alignment, and analyzing the theoretical foundations of intelligence systems. My work on embedded agency and the challenges of self-modifying systems would contribute meaningfully to MIRI's ongoing research into recursive self-improvement and the alignment of highly capable systems. Additionally, my experience bridging theoretical research with practical implementation ensures that fundamental insights translate into actionable safety measures.
+
+What draws me most to MIRI is your commitment to tackling the hardest problems in AI alignment, even when they require years of fundamental research before practical applications emerge. The Berkeley location provides access to a rich ecosystem of AI safety researchers and the academic community at UC Berkeley. I appreciate MIRI's culture of intellectual rigor and willingness to pursue unconventional approaches to alignment challenges. Your recent work on mesa-optimization and the challenges of inner alignment represents exactly the kind of forward-thinking research that will be crucial as AI systems become more capable.
+
+I am passionate about contributing to MIRI's mission of ensuring advanced AI systems are aligned with human values. Thank you for considering my application. I would welcome the opportunity to discuss how my theoretical research background can advance your fundamental work on AI alignment.
+
+Sincerely,
+[Your Name]

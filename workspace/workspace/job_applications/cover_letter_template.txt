@@ -1,0 +1,34 @@
+COVER LETTER TEMPLATE - AI SAFETY POSITIONS
+
+[Date]
+[Company Name]
+[Company Address]
+
+Dear Hiring Manager / [Specific Name if available],
+
+OPENING HOOK:
+- Reference specific AI safety work/publications from the company
+- Connect your background to their mission
+- Show you understand their unique approach to safety
+
+BODY PARAGRAPH 1 - TECHNICAL ALIGNMENT:
+- Highlight relevant research experience
+- Mention specific AI safety subfields (alignment, interpretability, robustness)
+- Connect your skills to their current projects
+
+BODY PARAGRAPH 2 - CULTURAL FIT:
+- Reference company values/mission
+- Show understanding of location-specific considerations (Japan vs Bay Area)
+- Demonstrate long-term commitment to AI safety
+
+CLOSING:
+- Reaffirm interest and alignment
+- Professional sign-off
+
+Sincerely,
+[Your Name]
+
+COMPANY-SPECIFIC NOTES TO INCORPORATE:
+- Research recent publications/announcements
+- Mention specific team members or projects
+- Reference location advantages (Japan: international perspective, Bay Area: ecosystem)
